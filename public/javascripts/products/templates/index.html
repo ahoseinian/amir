@@ -1,0 +1,8 @@
+Products index
+
+<table class="table">
+	<tr ng-repeat="v in products">
+		<td>{{v.name}}</td>
+		<td ng-click="remove(v.id)"><span class="pointer">x</span></td>
+	</tr>
+</table>

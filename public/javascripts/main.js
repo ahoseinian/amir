@@ -1,4 +1,4 @@
-angular.module('myApp', ['ui.router'])
+angular.module('myApp', ['ui.router', 'products'])
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 		$urlRouterProvider.otherwise("/home");
 
