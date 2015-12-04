@@ -9,9 +9,7 @@ function decodeBase64Image(dataString) {
   var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
     response = {};
 
-  if (matches.length !== 3) {
-    return new Error('Invalid input string');
-  }
+  if (matches.length !== 3) { return new Error('Invalid input string'); }
 
   response.type = matches[1];
   response.data = new Buffer(matches[2], 'base64');
@@ -19,18 +17,13 @@ function decodeBase64Image(dataString) {
   return response;
 }
 
+function writeImage(path, data){
+  var imageBuffer = decodeBase64Image(data);
 
-router.param('product', function(req, res, next, id) {
-  var query = Product.findById(id);
-
-  query.exec(function (err, product){
-    if (err) { return next(err); }
-    if (!product) { return next(new Error('can\'t find product')); }
-
-    req.product = product;
-    return next();
+  fs.writeFile(path, imageBuffer.data, function(err) {
+    console.log(err);
   });
-});
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -46,29 +39,25 @@ router.post('/', function(req, res, next) {
 
   product.save(function(err, product){
     if(err){ return next(err); }
-
-    var imageBuffer = decodeBase64Image(req.body.image);
-
-		fs.writeFile(__dirname + '/../storage/images/products/'+ product._id +'.jpg', imageBuffer.data, function(err) {
-			console.log(err);
-		});
+    if(req.body.image){ writeImage(__dirname + '/../storage/images/products/'+ product._id +'.jpg', req.body.image); }
 
     res.json(product);
   });
 });
 
-router.delete('/:product', function(req, res, next){
-	req.product.remove(function(err, removed){
+router.delete('/:id', function(req, res, next){
+	Product.remove({_id: req.params.id },function(err, removed){
 		if(err){ next(err); }
+    fs.unlink(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', function(err){return console.error(err); });
 
 		res.json(removed);
 	})
 });
 
-router.put('/:product', function(req, res, next) {
-
-  req.product.update(req.body, function(err, product){
+router.put('/:id', function(req, res, next) {
+  Product.update({_id: req.params.id}, req.body, function(err, product){
     if(err){ return next(err); }
+    if(req.body.image){ writeImage(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', req.body.image); }
 
     res.json(product);
   });

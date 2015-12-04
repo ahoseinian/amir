@@ -15,8 +15,8 @@ var products = require('./routes/products');
 
 var app = express();
 
-app.use(bodyParser.json({limit: '2mb'}));
-app.use(bodyParser.urlencoded({limit: '2mb', extended: true}));
+app.use(bodyParser.json({limit: '1mb'}));
+app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
