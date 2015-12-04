@@ -10,13 +10,11 @@ html(ng-app="myApp")
         a.navbar-brand(href='#') Navbar
           ul.nav.navbar-nav
             li.nav-item.active
-              a.nav-link(href='#') Home 
+              a.nav-link(href='/') Home 
             li.nav-item
-              a.nav-link(ui-sref='products') Products
+              a.nav-link(href='/#/products') Products
             li.nav-item
-              a.nav-link(href='#') Pricing
-            li.nav-item
-              a.nav-link(href='#') About
+              a.nav-link(href='/users') Users
           form.form-inline.navbar-form.pull-right
             input.form-control(type='text', placeholder='Search')
             button.btn.btn-success-outline(type='submit') Search
@@ -25,11 +23,3 @@ html(ng-app="myApp")
 
     script(src='/jquery/dist/jquery.min.js')
     script(src='/bootstrap/dist/js/bootstrap.min.js')
-    script(src='/angular/angular.min.js')
-    script(src='/angular-ui-router/release/angular-ui-router.min.js')
-    script(src='/angular-notification/angular-notification.min.js')
-    script(src='/angular-notification/angular-notification.min.js')
-    script(src='/ng-file-upload/ng-file-upload.min.js')
-    script(src='/javascripts/main.js')
-    script(src='/javascripts/products/main.js')
-    script(src='/javascripts/products/services/product.js')

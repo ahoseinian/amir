@@ -5,4 +5,4 @@ var ProductSchema = new mongoose.Schema({
   weight: String
 }, { timestamps: { createdAt: 'created_at' }});
 
-mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Product', ProductSchema);
