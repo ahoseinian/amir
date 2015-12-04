@@ -1,4 +1,4 @@
-angular.module('products', ['notification', 'ngFileUpload'])
+angular.module('products', ['notification'])
 	.directive("fileread", [function () {
 	    return {
 	        scope: {

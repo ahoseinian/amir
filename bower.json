@@ -19,7 +19,6 @@
     "bootstrap": "~4",
     "angular": "~1.4.8",
     "angular-ui-router": "~0.2.15",
-    "angular-notification": "~1.1.1",
-    "ng-file-upload": "~10.1.7"
+    "angular-notification": "~1.1.1"
   }
 }
