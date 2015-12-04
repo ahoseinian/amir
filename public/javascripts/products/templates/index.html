@@ -1,8 +1,15 @@
-Products index
+<h2>Products index</h2>
+<button class="btn btn-primary" ui-sref="products.new">new</button>
+
+<div ui-view class="p-a"></div>
 
 <table class="table">
 	<tr ng-repeat="v in products">
 		<td>{{v.name}}</td>
-		<td ng-click="remove(v.id)"><span class="pointer">x</span></td>
+		<td>{{v.weight}}</td>
+		<td>
+			<button ng-click="remove(v._id)" class="btn btn-secondary btn-sm">x</button>
+			<button ng-click="edit(v)" class="btn btn-secondary btn-sm">Edit</button>
+		</td>
 	</tr>
 </table>
