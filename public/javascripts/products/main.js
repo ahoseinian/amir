@@ -1,16 +1,30 @@
-angular.module('products', ['notification'])
+angular.module('products', ['notification', 'ngFileUpload'])
+	.directive("fileread", [function () {
+	    return {
+	        scope: {
+	            fileread: "="
+	        },
+	        link: function (scope, element, attributes) {
+	            element.bind("change", function (changeEvent) {
+	                var reader = new FileReader();
+	                reader.onload = function (loadEvent) {
+	                    scope.$apply(function () {
+	                        scope.fileread = loadEvent.target.result;
+	                    });
+	                }
+	                reader.readAsDataURL(changeEvent.target.files[0]);
+	            });
+	        }
+	    }
+	}])
 	.controller('IndexController', ['$scope', 'product', '$notification', '$state', function($scope, product ,$notification, $state){
 		$scope.products = product.products;
 
 		$scope.remove = function(id){
 			product.remove(id);
-			$notification('Message',{
-				body: 'Product has been removed'
-			})
 		}
 
 		$scope.edit = function(product){
-			console.log(product);
 			$state.go('products.new', {product: product});
 		}
 	}])
@@ -19,18 +33,7 @@ angular.module('products', ['notification'])
 
 		$scope.product = $stateParams.product;
 		$scope.add = function(){
-
-			if($scope.product._id){
-				product.update($scope.product);
-				$notification('Product',{
-					body: 'Product has been updated'
-				})
-			}else{
-				product.create($scope.product);
-				$notification('Product',{
-					body: 'Product has been added'
-				})
-			}
+			product.save($scope.product);
 			$scope.product = {};
 		}
 	}])

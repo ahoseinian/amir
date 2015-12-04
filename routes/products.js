@@ -1,7 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var fs = require('fs');
 var Product = mongoose.model('Product');
+
+
+function decodeBase64Image(dataString) {
+  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+
+  if (matches.length !== 3) {
+    return new Error('Invalid input string');
+  }
+
+  response.type = matches[1];
+  response.data = new Buffer(matches[2], 'base64');
+
+  return response;
+}
 
 
 router.param('product', function(req, res, next, id) {
@@ -30,6 +46,12 @@ router.post('/', function(req, res, next) {
 
   product.save(function(err, product){
     if(err){ return next(err); }
+
+    var imageBuffer = decodeBase64Image(req.body.image);
+
+		fs.writeFile(__dirname + '/../storage/images/products/'+ product._id +'.jpg', imageBuffer.data, function(err) {
+			console.log(err);
+		});
 
     res.json(product);
   });

@@ -34,5 +34,13 @@ angular.module('products')
 			});
 		};
 
+		o.save = function(product){
+			if(product._id){
+				o.update(product);
+			}else{
+				o.create(product);
+			}
+		}
+
 		return o;
 	}])
