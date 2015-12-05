@@ -1,35 +1,35 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var Model = require('../models/model');
 
-/* GET users listing. */
+/* GET models listing. */
 router.get('/', function(req, res, next) {
-	User.find(function(err, users){
+	Model.find(function(err, models){
 		if(err){next(err)};
-		res.json(users);
+		res.json(models);
 	})
 });
 
 router.post('/', function(req, res, next) {
-  var user = new User(req.body);
+  var model = new Model(req.body);
 
-  user.save(function(err, user){
+  model.save(function(err, model){
     if(err){ return next(err); }
-    res.json(user);
+    res.json(model);
   });
 });
 
 router.delete('/:id', function(req, res, next){
-	User.remove({_id: req.params.id },function(err, removed){
+	Model.remove({_id: req.params.id },function(err, removed){
 		if(err){ next(err); }
 		res.json(removed);
 	})
 });
 
 router.put('/:id', function(req, res, next) {
-  User.update({_id: req.params.id}, req.body, function(err, user){
+  Model.update({_id: req.params.id}, req.body, function(err, model){
     if(err){ return next(err); }
-    res.json(user);
+    res.json(model);
   });
 });
 

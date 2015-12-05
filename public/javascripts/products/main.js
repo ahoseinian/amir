@@ -1,4 +1,4 @@
-angular.module('products', ['notification'])
+angular.module('products', [])
 	.directive("fileread", [function () {
 	    return {
 	        scope: {
@@ -17,33 +17,21 @@ angular.module('products', ['notification'])
 	        }
 	    }
 	}])
-	.controller('IndexController', ['$scope', 'product', '$notification', '$state', function($scope, product ,$notification, $state){
-		$scope.products = product.products;
 
-		$scope.remove = function(id){
-			product.remove(id);
-		}
-
-		$scope.edit = function(product){
-			$state.go('products.new', {product: product});
-		}
-	}])
-
-	.controller('NewController', ['$scope', 'product', '$notification', '$stateParams', function($scope, product, $notification, $stateParams){
-
-		$scope.product = $stateParams.product;
-		$scope.add = function(){
-			product.save($scope.product);
-			$scope.product = {};
-		}
-	}])
 
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+
 		$stateProvider
 			.state('products', {
 				url: "/products",
 				templateUrl: "/javascripts/products/templates/index.html",
-				controller: 'IndexController',
+				controller: ['$scope', 'product', '$state', function($scope, product , $state){
+					if(!$scope.user){location.reload()}
+					$scope.products = product.products;
+
+					$scope.remove = function(id){ product.remove(id); }
+					$scope.edit = function(product){ $state.go('products.new', {product: product}); }
+				}],
 				resolve:{
 					productsPromise: ['product', function(product){
 						return product.getAll();
@@ -56,6 +44,13 @@ angular.module('products', ['notification'])
 				params:{
 					product: null,
 				},
-				controller: 'NewController',	
+				controller: ['$scope', 'product', '$stateParams', function($scope, product, $stateParams){
+
+					$scope.product = $stateParams.product;
+					$scope.add = function(){
+						product.save($scope.product);
+						$scope.product = {};
+					}
+				}],	
 			})
 	}])
