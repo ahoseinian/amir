@@ -42,5 +42,11 @@ angular.module('models')
 			}
 		}
 
+		o.add_product_info = function(model, info){
+		  return $http.post('/api/models/'+model._id+'/add_product_info', info).success(function(data){
+		    model.product_infos.push(info);
+		  });
+		}
+
 		return o;
 	}])

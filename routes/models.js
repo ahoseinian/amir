@@ -19,6 +19,18 @@ router.post('/', function(req, res, next) {
   });
 });
 
+router.post('/:id/add_product_info', function(req, res, next) {
+  Model.findOne({_id: req.params.id}, function(err, model){
+    if(err){ next(err) }
+    model.product_infos.push(req.body);
+    model.save(function(err, model){
+      if(err){ return next(err); }
+      res.json(model);
+    });
+  });
+
+});
+
 router.delete('/:id', function(req, res, next){
 	Model.remove({_id: req.params.id },function(err, removed){
 		if(err){ next(err); }

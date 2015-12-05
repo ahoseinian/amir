@@ -1,7 +1,7 @@
-<h3>{{model.name || 'New Model'}}</h3>
+<h3>{{model.name}}</h3>
 <form ng-submit="add()" novalidate name="form">
 	<fieldset class="form-group">
-		<input class="form-control" placeholder="name" ng-model="model.name" required>
+		<input class="form-control" placeholder="name" ng-model="info.name" required>
 	</fieldset>
 	<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
 </form>

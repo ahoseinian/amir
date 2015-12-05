@@ -2,6 +2,7 @@ angular.module('models', [])
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
 		$stateProvider
+
 			.state('models', {
 				url: "/models",
 				templateUrl: "/javascripts/models/templates/index.html",
@@ -18,6 +19,7 @@ angular.module('models', [])
 					}]
 				}
 			})
+
 			.state('models.new',{
 				url: "/new",
 				templateUrl: "/javascripts/models/templates/new.html",
@@ -33,4 +35,21 @@ angular.module('models', [])
 					}
 				}],	
 			})
+
+			.state('models.product_infos', {
+				url: "/product_infos",
+				templateUrl: "/javascripts/models/templates/product_infos.html",
+				params:{
+					model: null,
+				},
+				controller: ['$scope', 'model', '$stateParams', function($scope, model, $stateParams){
+
+					$scope.model = $stateParams.model;
+					$scope.add = function(){
+						model.add_product_info($scope.model, $scope.info);
+						$scope.info = {};
+					}
+				}],	
+			})
+
 	}])
