@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var lwip = require('lwip');
 var Product = require('../models/product');
 
 
@@ -19,9 +20,16 @@ function decodeBase64Image(dataString) {
 function writeImage(path, data){
   var imageBuffer = decodeBase64Image(data);
 
-  fs.writeFile(path, imageBuffer.data, function(err) {
-    console.log(err);
+  require('lwip').open(imageBuffer.data, imageBuffer.type, function(err, image){
+    image.resize(200, function(err, image){
+      image.writeFile(path, function(err){
+        console.log(err);
+      });
+    });
   });
+  // fs.writeFile(path, imageBuffer.data, function(err) {
+  //   console.log(err);
+  // });
 }
 
 /* GET home page. */

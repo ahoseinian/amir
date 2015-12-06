@@ -10,7 +10,7 @@ angular.module('models', [])
 					if(!$scope.user){location.reload()}
 					$scope.models = model.models;
 
-					$scope.remove = function(id){ model.remove(id); }
+					$scope.remove = function(id){ model.remove(id);}
 					$scope.edit = function(model){ $state.go('models.new', {model: model}); }
 				}],
 				resolve:{
@@ -36,19 +36,32 @@ angular.module('models', [])
 				}],	
 			})
 
-			.state('models.product_infos', {
-				url: "/product_infos",
-				templateUrl: "/javascripts/models/templates/product_infos.html",
+			.state('models.infos',{
+				url: "/infos",
+				templateUrl: "/javascripts/models/templates/infos.html",
 				params:{
 					model: null,
 				},
-				controller: ['$scope', 'model', '$stateParams', function($scope, model, $stateParams){
-
+				controller: ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state){
 					$scope.model = $stateParams.model;
+					if(!$scope.model){$state.go("models.new")};
+				}]
+			})
+
+			.state('models.infos.product', {
+				url: "/product",
+				templateUrl: "/javascripts/models/templates/product_infos.html",
+				controller: ['$scope', 'model', function($scope, model){
+
 					$scope.add = function(){
-						model.add_product_info($scope.model, $scope.info);
+						model.add_info('product', $scope.model, $scope.info);
 						$scope.info = {};
 					}
+
+					$scope.remove = function(info){
+						model.remove_info('product', $scope.model, info);	
+					}
+					
 				}],	
 			})
 

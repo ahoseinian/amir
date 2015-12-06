@@ -1,4 +1,8 @@
 <h3>{{model.name}}</h3>
+<div class="info-place bg-info" ng-repeat="info in model.product_infos">
+	<span>{{info.name}}</span>
+	<button type="button" class="close" ng-click="remove(info)"> <span>&times;</span> </button>
+</div>	
 <form ng-submit="add()" novalidate name="form">
 	<fieldset class="form-group">
 		<input class="form-control" placeholder="name" ng-model="info.name" required>

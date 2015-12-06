@@ -1,6 +1,7 @@
 angular.module('models')
 	.factory('model', ['$http', function($http){
 		var o = {
+			model:{},
 			models:[]
 		};
 
@@ -23,8 +24,14 @@ angular.module('models')
 		}
 
 		o.get = function(id) {
-		  return $http.get('/api/models/' + id).then(function(res){
-		    return res.data;
+		  return $http.get('/api/models/' + id).success(function(data){
+		    angular.copy(data, o.model);
+		  });
+		};
+
+		o.getByName = function(name) {
+		  return $http.get('/api/models/by/name/' + name).success(function(data){
+		    angular.copy(data, o.model);
 		  });
 		};
 
@@ -42,10 +49,43 @@ angular.module('models')
 			}
 		}
 
-		o.add_product_info = function(model, info){
-		  return $http.post('/api/models/'+model._id+'/add_product_info', info).success(function(data){
-		    model.product_infos.push(info);
+		o.add_info = function(type, model, info){
+		  return $http.post('/api/models/'+model._id+'/infos/'+type, info).success(function(data){
+		  	angular.copy(data, model);	
 		  });
+		}
+
+		o.remove_info = function(type, model, info){
+		  return $http.delete('/api/models/'+ model._id +'/infos/'+ type +'/'+ info._id).success(function(data){
+		  	angular.copy(data, model);	
+		  });
+		}
+
+		o.removeProduct = function(id){
+			return $http.delete('/api/products/'+ id).success(function(res){
+				o.get(o.model._id);
+			});
+		};
+
+		o.createProduct = function(product) {
+		  return $http.post('/api/products', product).success(function(data){
+		    o.model.products.push(data);
+		  });
+		};
+
+		o.updateProduct = function(product){
+			return $http.put('/api/products/'+ product._id, product).success(function(data){
+				o.get(o.model._id);
+			});
+		}
+
+		o.saveProduct = function(product){
+			product._model = o.model._id;
+			if(product._id){
+				o.updateProduct(product);
+			}else{
+				o.createProduct(product);
+			}
 		}
 
 		return o;

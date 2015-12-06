@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Model = require('../models/model');
+var Product = require('../models/product');
 
 /* GET models listing. */
 router.get('/', function(req, res, next) {
@@ -8,6 +9,26 @@ router.get('/', function(req, res, next) {
 		if(err){next(err)};
 		res.json(models);
 	})
+});
+
+router.get('/:id', function(req, res, next){
+  Model.findOne({ _id: req.params.id }, function (err, model) {
+    if (err){ next(err) };
+    Product.find({_model: model._id}, function(err, products){
+      model.products = products;
+      res.json(model);
+    })
+  });
+});
+
+router.get('/by/name/:name', function(req, res, next){
+  Model.findOne({ name: req.params.name }, function (err, model) {
+    if (err){ next(err) };
+    Product.find({_model: model._id}, function(err, products){
+      model.products = products;
+      res.json(model);
+    })
+  });
 });
 
 router.post('/', function(req, res, next) {
@@ -19,16 +40,21 @@ router.post('/', function(req, res, next) {
   });
 });
 
-router.post('/:id/add_product_info', function(req, res, next) {
+router.post('/:id/infos/:type', function(req, res, next) {
   Model.findOne({_id: req.params.id}, function(err, model){
     if(err){ next(err) }
-    model.product_infos.push(req.body);
+
+    switch(req.params.type){
+      case 'product':
+        model.product_infos.push(req.body);
+        break;
+    }
+
     model.save(function(err, model){
       if(err){ return next(err); }
       res.json(model);
     });
   });
-
 });
 
 router.delete('/:id', function(req, res, next){
@@ -36,6 +62,21 @@ router.delete('/:id', function(req, res, next){
 		if(err){ next(err); }
 		res.json(removed);
 	})
+});
+
+router.delete('/:id/infos/:type/:infoId', function(req, res, next){
+  Model.findOne({_id: req.params.id}, function(err, model){
+    if(err){ next(err) }
+    switch(req.params.type){
+      case 'product':
+        model.product_infos.id(req.params.infoId).remove();
+        break;
+    }
+    model.save(function(err, model){
+      if(err){ return next(err); }
+      res.json(model);
+    });
+  });
 });
 
 router.put('/:id', function(req, res, next) {

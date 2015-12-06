@@ -6,11 +6,10 @@
 		<table class="table">
 			<tr ng-repeat="v in models">
 				<td>{{v.name}}</td>
-				<td>{{v.product_infos}}</td>
 				<td>
-					<button ng-click="remove(v._id)" class="btn btn-secondary btn-sm">x</button>
-					<button ng-click="edit(v)" class="btn btn-secondary btn-sm">Edit</button>
-					<button ui-sref="models.product_infos({model: v})" class="btn btn-secondary btn-sm">add product info</button>
+					<a ng-click="remove(v._id)" class="btn btn-secondary btn-sm">x</a>
+					<a ng-click="edit(v)" class="btn btn-secondary btn-sm">Edit</a>
+					<a ui-sref="models.infos({model: v})" class="btn btn-secondary btn-sm" ui-sref-active="active">Infos</a>
 				</td>
 			</tr>
 		</table>

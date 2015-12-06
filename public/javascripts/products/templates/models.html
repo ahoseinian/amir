@@ -1,0 +1,44 @@
+<div class="col-md-3">
+	<h3>New Product</h3>
+	<form ng-submit="add()" novalidate name="form">
+		<fieldset class="form-group">
+			<input class="form-control" placeholder="code" ng-model="product.code" required>
+		</fieldset>
+		<fieldset class="form-group">
+			<input class="form-control" type="file" fileread="product.image">
+		</fieldset>
+		<fieldset class="form-group" ng-repeat="info in model.product_infos">
+			<input class="form-control" type="text" ng-model="product[info.name]" placeholder="{{info.name}}">
+		</fieldset>
+		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+	</form>
+</div>
+
+<div class="col-md-9">
+	<table class="table">
+		<tr ng-repeat="v in model.products">
+			<td>{{v.code}}</td>
+			<td>
+				<button ng-click="remove(v._id)" class="btn btn-secondary btn-sm">x</button>
+				<a ui-sref="products.models({model: model.name, product: v})" class="btn btn-secondary btn-sm">Edit</a>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="card-columns">
+
+		<div class="card" ng-repeat="p in model.products">
+	    <div class="card-block">
+		    <h4 class="card-title">{{p.code}}</h4>
+		    <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+		  </div>
+		  <img src="/images/products/{{p._id}}.jpg" alt="Card image">
+		  <div class="card-block">
+		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<button ng-click="remove(p._id)" class="btn btn-danger btn-sm">Delete</button>
+				<a ui-sref="products.models({model: model.name, product: p})" class="btn btn-secondary btn-sm">ویرایش</a>
+		  </div>
+		</div>
+	</div>
+
+</div>

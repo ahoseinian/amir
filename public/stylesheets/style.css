@@ -1,1 +1,9 @@
 .pointer{cursor: pointer;}
+.info-place{
+	display: inline-block;
+	margin: 3px 5px;
+	padding: 0 3px;
+}
+.info-place span{
+	margin: 0 2px; 
+}

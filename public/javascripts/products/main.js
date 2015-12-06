@@ -25,32 +25,42 @@ angular.module('products', [])
 			.state('products', {
 				url: "/products",
 				templateUrl: "/javascripts/products/templates/index.html",
-				controller: ['$scope', 'product', '$state', function($scope, product , $state){
+				controller: ['$scope', 'model', function($scope, model){
 					if(!$scope.user){location.reload()}
-					$scope.products = product.products;
-
-					$scope.remove = function(id){ product.remove(id); }
-					$scope.edit = function(product){ $state.go('products.new', {product: product}); }
+					$scope.models = model.models;
 				}],
 				resolve:{
-					productsPromise: ['product', function(product){
-						return product.getAll();
-					}]
+					modelsPromise: ['model', function(model){
+						return model.getAll();
+					}],
 				}
 			})
-			.state('products.new',{
-				url: "/new",
-				templateUrl: "/javascripts/products/templates/new.html",
+
+			.state('products.models', {
+				url: "/models/:model",
+				templateUrl: "/javascripts/products/templates/models.html",
 				params:{
 					product: null,
 				},
-				controller: ['$scope', 'product', '$stateParams', function($scope, product, $stateParams){
+
+				controller: ['$scope', '$stateParams', '$state', 'product', 'model',  function($scope, $stateParams, $state, product, model){
+					$scope.model = model.model;
 
 					$scope.product = $stateParams.product;
+
+					$scope.remove = function(id){ model.removeProduct(id); }
+
 					$scope.add = function(){
-						product.save($scope.product);
+						model.saveProduct($scope.product);
 						$scope.product = {};
 					}
-				}],	
+				}],
+
+				resolve:{
+					modelPromise: ['model', '$stateParams', function(model, $stateParams){
+						return model.getByName($stateParams.model);
+					}],
+				}
 			})
+
 	}])

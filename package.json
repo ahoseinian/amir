@@ -13,6 +13,7 @@
     "express-session": "^1.12.1",
     "jade": "~1.11.0",
     "kerberos": "0.0.17",
+    "lwip": "0.0.8",
     "mongoose": "^4.2.9",
     "morgan": "~1.6.1",
     "passport": "^0.3.2",
