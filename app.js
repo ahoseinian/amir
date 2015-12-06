@@ -24,7 +24,11 @@ app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({ 
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
