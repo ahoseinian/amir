@@ -2,19 +2,19 @@ doctype html
 html(ng-app="myApp")
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
   body
     .container
       nav.navbar.navbar-light.bg-faded.m-b
         a.navbar-brand(href='#') Salar
           ul.nav.navbar-nav
-            li.nav-item.active
-              a.nav-link(ui-sref='home') Home 
             li.nav-item
-              a.nav-link(ui-sref='products') Products
+              a.nav-link(ui-sref='home', ui-sref-active="active") Home 
             li.nav-item
-              a.nav-link(ui-sref='users') Users
+              a.nav-link(ui-sref='products', ui-sref-active="active") Products
+            li.nav-item
+              a.nav-link(ui-sref='users', ui-sref-active="active") Users
             li.nav-item
               a.nav-link(ui-sref='models.new', ui-sref-active="active") Models
           form.form-inline.navbar-form.pull-right
