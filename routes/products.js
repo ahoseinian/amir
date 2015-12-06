@@ -20,10 +20,10 @@ function decodeBase64Image(dataString) {
 function writeImage(path, data){
   var imageBuffer = decodeBase64Image(data);
 
-  require('lwip').open(imageBuffer.data, imageBuffer.type, function(err, image){
+  require('lwip').open(imageBuffer.data, 'jpeg', function(err, image){
     image.resize(200, function(err, image){
       image.writeFile(path, function(err){
-        console.log(err);
+        if(err){console.log(err)};
       });
     });
   });
@@ -42,11 +42,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  var image = req.body.image;
+  delete req.body.image;
   var product = new Product(req.body);
 
   product.save(function(err, product){
     if(err){ return next(err); }
-    if(req.body.image){ writeImage(__dirname + '/../storage/images/products/'+ product._id +'.jpg', req.body.image); }
+    if(image){ writeImage(__dirname + '/../storage/images/products/'+ product._id +'.jpg', image); }
 
     res.json(product);
   });
@@ -62,9 +64,12 @@ router.delete('/:id', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next) {
+  var image = req.body.image;
+  delete req.body.image;
+
   Product.update({_id: req.params.id}, req.body, function(err, product){
     if(err){ return next(err); }
-    if(req.body.image){ writeImage(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', req.body.image); }
+    if(image){ writeImage(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', image); }
 
     res.json(product);
   });
