@@ -1,3 +1,14 @@
+@font-face {
+  font-family: yekan-web;
+  src: url(/fonts/YekanWeb-Regular.woff);
+}
+body{
+	font-family: yekan-web, tahoma;
+}
+.form-control {
+  padding: .1rem .75rem;
+  line-height: 2;
+}
 .pointer{cursor: pointer;}
 .info-place{
 	display: inline-block;
@@ -7,8 +18,21 @@
 .info-place span{
 	margin: 0 2px; 
 }
+.btn-absolute-right{
+  position: absolute;
+  left: -3px;
+}
+
 .card-columns {
   -webkit-column-count: 4;
   -moz-column-count: 4;
   column-count: 4;
+}
+
+.card img{
+	width: 100%;
+}
+
+.list-group-item {
+  padding: .25rem 1.25rem;
 }

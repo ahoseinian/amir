@@ -63,4 +63,25 @@ angular.module('products', [])
 				}
 			})
 
+			.state('products.models.new', {
+				url: "/new/:id",
+				templateUrl: "/javascripts/products/templates/new.html",
+				controller: ['$scope', '$stateParams', 'model', 'product', function($scope, $stateParams, model, product){
+					$scope.product = product.product;
+					$scope.add = function(){
+						model.saveProduct($scope.product);
+						$scope.product = {};
+					}
+				}],
+				resolve:{
+					productPromise: ['product', '$stateParams', function(product, $stateParams){
+						if($stateParams.id){
+							return product.get($stateParams.id);
+						}else{
+							return product.product = {};
+						}
+					}],
+				}
+			})
+
 	}])

@@ -1,2 +1,19 @@
-<a ui-sref="models.infos.product" ui-sref-active="active" class="btn btn-sm btn-primary">Product</a>
-<div ui-view></div>
+<div>
+	<a ui-sref="models.infos({infoType: 'product'})" ui-sref-active="active" class="btn btn-primary btn-sm">Product</a>
+	<a ui-sref="models.infos({infoType: 'purchase'})" ui-sref-active="active"  class="btn btn-primary btn-sm">Purchase</a>
+</div>
+
+<div class="p-t" ng-if="infoType">
+	<h3>{{model.name}}</h3>
+	<div class="info-place bg-info" ng-repeat="info in model.infos[infoType]">
+		<span>{{info.name}}</span>
+		<button type="button" class="close" ng-click="remove(info)"> <span>&times;</span> </button>
+	</div>	
+
+	<form ng-submit="add()" novalidate name="form">
+		<fieldset class="form-group">
+			<input class="form-control" placeholder="name" ng-model="info.name" required>
+		</fieldset>
+		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+	</form>
+</div>

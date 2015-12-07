@@ -1,6 +1,7 @@
 angular.module('products')
 	.factory('product', ['$http', function($http){
 		var o = {
+			product:{},
 			products:[]
 		};
 
@@ -23,8 +24,8 @@ angular.module('products')
 		}
 
 		o.get = function(id) {
-		  return $http.get('/api/products/' + id).then(function(res){
-		    return res.data;
+		  return $http.get('/api/products/' + id).success(function(data){
+		    angular.copy(data, o.product);
 		  });
 		};
 

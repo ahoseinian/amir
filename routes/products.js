@@ -17,19 +17,17 @@ function decodeBase64Image(dataString) {
   return response;
 }
 
-function writeImage(path, data){
+function writeImage(path, data, callback){
   var imageBuffer = decodeBase64Image(data);
 
   require('lwip').open(imageBuffer.data, 'jpeg', function(err, image){
     image.resize(200, function(err, image){
       image.writeFile(path, function(err){
         if(err){console.log(err)};
+        typeof callback === 'function' && callback();
       });
     });
   });
-  // fs.writeFile(path, imageBuffer.data, function(err) {
-  //   console.log(err);
-  // });
 }
 
 /* GET home page. */
@@ -41,6 +39,14 @@ router.get('/', function(req, res, next) {
 	})
 });
 
+router.get('/:id', function(req, res, next) {
+  Product.findOne({_id: req.params.id}, function(err, product){
+    if(err){ return next(err); }
+
+    res.json(product);
+  })
+});
+
 router.post('/', function(req, res, next) {
   var image = req.body.image;
   delete req.body.image;
@@ -48,9 +54,11 @@ router.post('/', function(req, res, next) {
 
   product.save(function(err, product){
     if(err){ return next(err); }
-    if(image){ writeImage(__dirname + '/../storage/images/products/'+ product._id +'.jpg', image); }
-
-    res.json(product);
+    if(image){ 
+      writeImage(__dirname + '/../storage/images/products/'+ product._id +'.jpg', image, function(){
+        res.json(product);
+      }); 
+    }
   });
 });
 
@@ -69,9 +77,12 @@ router.put('/:id', function(req, res, next) {
 
   Product.update({_id: req.params.id}, req.body, function(err, product){
     if(err){ return next(err); }
-    if(image){ writeImage(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', image); }
+    if(image){ 
+      writeImage(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', image, function(){
+        res.json(product);
+      }); 
+    }
 
-    res.json(product);
   });
 });
 

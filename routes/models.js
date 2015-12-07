@@ -44,12 +44,7 @@ router.post('/:id/infos/:type', function(req, res, next) {
   Model.findOne({_id: req.params.id}, function(err, model){
     if(err){ next(err) }
 
-    switch(req.params.type){
-      case 'product':
-        model.product_infos.push(req.body);
-        break;
-    }
-
+    model.infos[req.params.type].push(req.body);
     model.save(function(err, model){
       if(err){ return next(err); }
       res.json(model);
@@ -67,11 +62,8 @@ router.delete('/:id', function(req, res, next){
 router.delete('/:id/infos/:type/:infoId', function(req, res, next){
   Model.findOne({_id: req.params.id}, function(err, model){
     if(err){ next(err) }
-    switch(req.params.type){
-      case 'product':
-        model.product_infos.id(req.params.infoId).remove();
-        break;
-    }
+
+    model.infos[req.params.type].id(req.params.infoId).remove();
     model.save(function(err, model){
       if(err){ return next(err); }
       res.json(model);

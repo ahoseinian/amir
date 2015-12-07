@@ -10,20 +10,34 @@ html(ng-app="myApp")
   body
     .container
       nav.navbar.navbar-light.bg-faded.m-b
-        a.navbar-brand(href='#') Salar
+        a.navbar-brand(href='#') سالار
           ul.nav.navbar-nav
             li.nav-item
-              a.nav-link(ui-sref='home', ui-sref-active="active") Home 
+              a.nav-link(ui-sref='home', ui-sref-active="active") خانه 
             li.nav-item
-              a.nav-link(ui-sref='products', ui-sref-active="active") Products
+              a.nav-link(ui-sref='users', ui-sref-active="active") کاربران
             li.nav-item
-              a.nav-link(ui-sref='users', ui-sref-active="active") Users
-            li.nav-item
-              a.nav-link(ui-sref='models.new', ui-sref-active="active") Models
+              a.nav-link(ui-sref='models.new', ui-sref-active="active") دسته بندی
           form.form-inline.navbar-form.pull-right
             input.form-control(type='text', placeholder='Search')
             button.btn.btn-success-outline(type='submit') Search
 
+      nav.navbar.navbar-light.bg-faded.m-b
+        ul.nav.navbar-nav
+          li.nav-item
+            a.nav-link(ui-sref='products', ui-sref-active="active") محصولات
+          li.nav-item
+            a.nav-link(ui-sref='home', ui-sref-active="active") سفارش 
+          li.nav-item
+            a.nav-link(ui-sref='home', ui-sref-active="active") تولیدات 
+          li.nav-item
+            a.nav-link(ui-sref='home', ui-sref-active="active") خروجی 
+          li.nav-item
+            a.nav-link(ui-sref='home', ui-sref-active="active") انبار 
+          li.nav-item
+            a.nav-link(ui-sref='home', ui-sref-active="active") برگشتی 
+          li.nav-item
+            a.nav-link(ui-sref='home', ui-sref-active="active") گزارشات 
       block content
 
     script(src='/jquery/dist/jquery.min.js')

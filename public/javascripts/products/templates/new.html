@@ -1,0 +1,17 @@
+<div class="card" ng-class="{'card-info': product._id}">
+	<div class="card-block">
+		<h3>{{product._id ? "Edit": "New"}} {{product.code}}</h3>
+		<form ng-submit="add()" novalidate name="form">
+			<fieldset class="form-group">
+				<input class="form-control" placeholder="code" ng-model="product.code" required>
+			</fieldset>
+			<fieldset class="form-group">
+				<input class="form-control" type="file" fileread="product.image">
+			</fieldset>
+			<fieldset class="form-group" ng-repeat="info in model.infos.product">
+				<input class="form-control" type="text" ng-model="product[info.name]" placeholder="{{info.name}}">
+			</fieldset>
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+		</form>
+	</div>
+</div>

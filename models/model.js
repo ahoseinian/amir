@@ -3,7 +3,10 @@ var mongoose = require('mongoose'),
 
 var ModelSchema = new Schema({
   name: {type: String, required: true},
-  product_infos: [{ name: String }],
+  infos: {
+		product: [{ name: String }],
+		purchase: [{ name: String }],
+	},
   products: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 });
 

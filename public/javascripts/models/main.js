@@ -37,32 +37,30 @@ angular.module('models', [])
 			})
 
 			.state('models.infos',{
-				url: "/infos",
+				url: "/:id/infos/:infoType",
 				templateUrl: "/javascripts/models/templates/infos.html",
-				params:{
-					model: null,
-				},
-				controller: ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state){
-					$scope.model = $stateParams.model;
-					if(!$scope.model){$state.go("models.new")};
-				}]
-			})
-
-			.state('models.infos.product', {
-				url: "/product",
-				templateUrl: "/javascripts/models/templates/product_infos.html",
-				controller: ['$scope', 'model', function($scope, model){
+				controller: ['$scope', '$stateParams', '$state', 'model', function($scope, $stateParams, $state, model){
+					$scope.model = model.model;
+					$scope.infoType = $stateParams.infoType;
+					$scope.info = {};
 
 					$scope.add = function(){
-						model.add_info('product', $scope.model, $scope.info);
+						model.add_info($scope.infoType, $scope.model, $scope.info);
 						$scope.info = {};
 					}
 
 					$scope.remove = function(info){
-						model.remove_info('product', $scope.model, info);	
+						model.remove_info($scope.infoType, $scope.model, info);	
 					}
-					
-				}],	
+
+				}],
+				resolve:{
+					modelsPromise: ['model', '$stateParams', function(model, $stateParams){
+						return model.get($stateParams.id);
+					}]
+				}
 			})
+
+
 
 	}])
