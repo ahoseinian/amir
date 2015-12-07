@@ -39,21 +39,10 @@ angular.module('products', [])
 			.state('products.models', {
 				url: "/models/:model",
 				templateUrl: "/javascripts/products/templates/models.html",
-				params:{
-					product: null,
-				},
 
-				controller: ['$scope', '$stateParams', '$state', 'product', 'model',  function($scope, $stateParams, $state, product, model){
+				controller: ['$scope', '$state', 'model',  function($scope, $state, model){
 					$scope.model = model.model;
-
-					$scope.product = $stateParams.product;
-
 					$scope.remove = function(id){ model.removeProduct(id); }
-
-					$scope.add = function(){
-						model.saveProduct($scope.product);
-						$scope.product = {};
-					}
 				}],
 
 				resolve:{
@@ -66,11 +55,11 @@ angular.module('products', [])
 			.state('products.models.new', {
 				url: "/new/:id",
 				templateUrl: "/javascripts/products/templates/new.html",
-				controller: ['$scope', '$stateParams', 'model', 'product', function($scope, $stateParams, model, product){
+				controller: ['$scope', '$state', 'model', 'product', function($scope, $state, model, product){
 					$scope.product = product.product;
 					$scope.add = function(){
 						model.saveProduct($scope.product);
-						$scope.product = {};
+						$state.go('products.models', {model: model.model.name});
 					}
 				}],
 				resolve:{
