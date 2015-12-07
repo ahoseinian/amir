@@ -1,0 +1,11 @@
+<button class="btn btn-primary btn-absolute-left btn-sm" ui-sref="customers.new({customer: null})">new</button>
+
+
+<div class="card-columns">
+	<div ui-view></div>
+	<div class="card card-block" ng-repeat="v in customers">
+	  <h4 class="card-title">{{v.name}}</h4>
+		<button ng-click="remove(v._id)" class="btn btn-danger btn-sm">Delete</button>
+		<button ng-click="edit(v)" class="btn btn-info btn-sm">Edit</button>
+	</div>
+</div>

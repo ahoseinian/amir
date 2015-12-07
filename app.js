@@ -16,6 +16,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var products = require('./routes/products');
 var models = require('./routes/models');
+var customers = require('./routes/customers');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'storage')));
 
 app.use('/', routes);
 app.use('/api/users', passport.authenticate('basic'), users);
+app.use('/api/customers', passport.authenticate('basic'), customers);
 app.use('/api/products', passport.authenticate('basic'), products);
 app.use('/api/models', passport.authenticate('basic'), models);
 

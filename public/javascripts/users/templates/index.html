@@ -1,19 +1,16 @@
 <div id="edit" ng-if="user.admin">
-	<button class="btn btn-primary" ui-sref="users.new">new</button>
+	<button class="btn btn-primary btn-absolute-left btn-sm" ui-sref="users.new({user: null})">new</button>
 
-	<div ui-view class="p-a"></div>
 
-	<table class="table">
-		<tr ng-repeat="v in users">
-			<td>{{v.username}}</td>
-			<td>{{v.fullname}}</td>
-			<td>{{v.admin}}</td>
-			<td>
-				<button ng-click="remove(v._id)" class="btn btn-secondary btn-sm">x</button>
-				<button ng-click="edit(v)" class="btn btn-secondary btn-sm">Edit</button>
-			</td>
-		</tr>
-	</table>
+	<div class="card-columns">
+		<div ui-view></div>
+		<div class="card card-block" ng-repeat="v in users">
+		  <h4 class="card-title">{{v.username}}</h4>
+		  <p class="card-text">{{v.fullname}}</p>
+			<button ng-click="remove(v._id)" class="btn btn-danger btn-sm">Delete</button>
+			<button ng-click="edit(v)" class="btn btn-info btn-sm">Edit</button>
+		</div>
+	</div>
 </div>
 
 <div id="view" ng-if="!user.admin">
