@@ -88,5 +88,11 @@ angular.module('models')
 			}
 		}
 
+		o.searchProducts = function(searchParams){
+			return $http.post('/api/models/'+o.model._id+'/products/search', searchParams).success(function(data){
+		    angular.copy(data, o.model);
+		  });
+		}
+
 		return o;
 	}])

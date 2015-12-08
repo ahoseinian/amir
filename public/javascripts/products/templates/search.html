@@ -1,0 +1,13 @@
+<div class="card card-block">
+	<h3>Search</h3>
+	<form ng-submit="search()" novalidate name="form">
+		<fieldset class="form-group">
+			<input class="form-control" placeholder="code" ng-model="product.code" >
+		</fieldset>
+		<fieldset class="form-group" ng-repeat="info in model.infos.product">
+			<input class="form-control" type="text" ng-model="product[info.name]" placeholder="{{info.name}}">
+		</fieldset>
+		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Search</button>
+		<button ng-click="product = {}" class="btn btn-secondary">Reset</button>
+	</form>
+</div>

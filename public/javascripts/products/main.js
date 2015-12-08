@@ -41,6 +41,7 @@ angular.module('products', [])
 				templateUrl: "/javascripts/products/templates/models.html",
 
 				controller: ['$scope', '$state', 'model',  function($scope, $state, model){
+					$scope.modelService = model;
 					$scope.model = model.model;
 					$scope.remove = function(id){ model.removeProduct(id); }
 				}],
@@ -55,22 +56,30 @@ angular.module('products', [])
 			.state('products.models.new', {
 				url: "/new/:id",
 				templateUrl: "/javascripts/products/templates/new.html",
-				controller: ['$scope', '$state', 'model', 'product', function($scope, $state, model, product){
-					$scope.product = product.product;
+				controller: ['$scope', '$state', '$stateParams', 'model', 'product', function($scope, $state, $stateParams, model, product){
+					$scope.product = $scope.modelService.model.products.filter(function(obj){
+						return obj._id == $stateParams.id;
+					})[0];
 					$scope.add = function(){
-						model.saveProduct($scope.product);
+						$scope.modelService.saveProduct($scope.product);
 						$state.go('products.models', {model: model.model.name});
 					}
 				}],
-				resolve:{
-					productPromise: ['product', '$stateParams', function(product, $stateParams){
-						if($stateParams.id){
-							return product.get($stateParams.id);
-						}else{
-							return product.product = {};
+			})
+
+			.state('products.models.search', {
+				url: '/search',
+				templateUrl: "/javascripts/products/templates/search.html",
+				controller: ['$scope', '$stateParams', function($scope, $stateParams){
+					$scope.search = function(){
+						for (var i in $scope.product) {
+						  if ($scope.product[i] === "") {
+						    delete $scope.product[i];
+						  }
 						}
-					}],
-				}
+						$scope.$parent.modelService.searchProducts($scope.product);
+					}
+				}],
 			})
 
 	}])

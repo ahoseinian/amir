@@ -78,4 +78,22 @@ router.put('/:id', function(req, res, next) {
   });
 });
 
+
+
+//seach products
+router.post('/:id/products/search', function(req, res, next){
+
+  Model.findOne({ _id: req.params.id }, function (err, model) {
+    if (err){ next(err) };
+    req.body._model = model._id;
+    Product.find(req.body, function(err, products){
+      model.products = products;
+      res.json(model);
+    })
+  });
+});
+
+
+
+
 module.exports = router;
