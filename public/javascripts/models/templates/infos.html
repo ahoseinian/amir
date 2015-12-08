@@ -1,12 +1,14 @@
-<div>
-	<a ui-sref="models.infos({infoType: 'product'})" ui-sref-active="active" class="btn btn-primary btn-sm">Product</a>
-	<a ui-sref="models.infos({infoType: 'purchase'})" ui-sref-active="active"  class="btn btn-primary btn-sm">Purchase</a>
-</div>
+<div class="card card-info">
+	<div class="card-block">
+		<h3 class="card-title text-center p-t">{{model.name}}</h3>
+		<div class="text-center">
+			<a ui-sref="models.infos({infoType: 'product'})" ui-sref-active="active" class="btn btn-primary btn-sm">Product</a>
+			<a ui-sref="models.infos({infoType: 'purchase'})" ui-sref-active="active"  class="btn btn-primary btn-sm">Purchase</a>
+		</div>
+	</div>
 
-<div ng-if="infoType">
-	<h3 class="text-center p-t">{{model.name}}</h3>
 
-	<div class="card">
+	<div class="card-block" ng-if="infoType">
 		<div class="card-block">
 			<h4 class="card-title">Texts</h4>
 		</div>
@@ -17,7 +19,7 @@
 				<button type="button" class="close" ng-click="remove(info, 'texts')"> <span>&times;</span> </button>
 			</li>	
 		</ul>
-	
+
 		<form class="card-block" ng-submit="add('texts')" novalidate name="form">
 			<fieldset class="form-group">
 				<input class="form-control" placeholder="name" ng-model="info.name" required>
@@ -25,8 +27,8 @@
 			<button type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled="form.$invalid">Save</button>
 		</form>
 	</div>
-	
-	<div class="card">
+
+	<div class="card-block"  ng-if="infoType">
 		<div class="card-block">
 			<h4 class="card-title">Selects</h4>
 		</div>
@@ -34,12 +36,12 @@
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item" ng-repeat="info in model.infos[infoType].selects">
 				<span>{{info.name}}</span>
-				<small>{{info.options.length}}</small>
+				<small class="text-muted"> {{info.options.length}} </small>
 				<button type="button" class="close" ng-click="remove(info, 'selects')"> <span>&times;</span> </button>
-				<button type="button" class="close text-primary m-r" ng-click="assignEditInfo(info)"> <span>&plus;</span> </button>
+				<button type="button" class="close text-primary m-r" ng-click="assignEditInfo(info)"> <span>+</span> </button>
 			</li>	
 		</ul>
-	
+
 		<form class="card-block" ng-submit="add('selects')" novalidate name="form">
 			<fieldset class="form-group">
 				<input class="form-control" placeholder="name" ng-model="info.name" required>
@@ -48,10 +50,10 @@
 		</form>
 	</div>
 
-	<div class="modal fade" id="myModal">
+	<div class="modal fade" id="myModal"  ng-if="infoType">
 	  <div class="modal-dialog modal-sm" role="document">
 	    <div class="modal-content">
-      	<div class="card " ng-if="editInfo">
+	    	<div class="card " ng-if="editInfo">
 					<div class="card-block">
 						<h4 class="card-title">Options for {{editInfo.name}}</h4>
 					</div>

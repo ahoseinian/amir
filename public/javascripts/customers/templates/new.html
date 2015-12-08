@@ -1,10 +1,12 @@
 <div class="card card-block" ng-class="{'card-info': customer._id}" >
-	<h3>{{customer._id ? "Edit": "New"}} {{customer.customername}}</h3>
+	<div class="card-block">
+		<h4 class="text-center card-title">{{customer._id ? "Edit": "New"}} {{customer.customername}}</h4>
+	</div>
 	<form ng-submit="add()" novalidate name="form">
 		<fieldset class="form-group">
 			<input class="form-control" placeholder="نام" ng-model="customer.name" required>
 		</fieldset>
 
-		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+		<button type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled="form.$invalid">Save</button>
 	</form>
 </div>
