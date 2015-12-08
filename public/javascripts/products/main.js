@@ -74,11 +74,10 @@ angular.module('products', [])
 					$scope.product = {};
 					$scope.search = function(){
 						for (var i in $scope.product) {
-						  if ($scope.product[i] === "") {
+						  if ($scope.product[i] === "" || $scope.product[i] === null) {
 						    delete $scope.product[i];
 						  }
 						}
-						console.log()
 						$scope.$parent.modelService.searchProducts($scope.product);
 					}
 				}],

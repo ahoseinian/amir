@@ -43,14 +43,39 @@ angular.module('models', [])
 					$scope.model = model.model;
 					$scope.infoType = $stateParams.infoType;
 					$scope.info = {};
+					$scope.editInfo = null;
 
-					$scope.add = function(){
-						model.add_info($scope.infoType, $scope.model, $scope.info);
+					$scope.add = function(tag){
+						model.add_info($scope.infoType, $scope.model, $scope.info, tag);
 						$scope.info = {};
 					}
 
-					$scope.remove = function(info){
-						model.remove_info($scope.infoType, $scope.model, info);	
+					$scope.remove = function(info, tag){
+						model.remove_info($scope.infoType, $scope.model, info, tag);	
+					}
+
+					$scope.assignEditInfo = function(info){
+						$scope.editInfo = info;
+						$('#myModal').modal();
+					}
+
+					$scope.removeOption = function(option){
+						console.log(option);
+						console.log($scope.editInfo);
+						$scope.editInfo.options = $scope.editInfo.options.filter(function(obj){
+							return obj !== option;
+						});
+
+					}
+
+					$scope.addOption = function(option){
+						$scope.editInfo.options.push(option);
+					}
+
+					$scope.saveOptions = function(){
+						model.save_info($scope.infoType, $scope.model, $scope.editInfo, 'selects');
+						$scope.editInfo = null;
+						$('#myModal').modal('hide');
 					}
 
 				}],

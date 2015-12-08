@@ -40,11 +40,28 @@ router.post('/', function(req, res, next) {
   });
 });
 
-router.post('/:id/infos/:type', function(req, res, next) {
+router.post('/:id/infos/:type/:tag', function(req, res, next) {
   Model.findOne({_id: req.params.id}, function(err, model){
     if(err){ next(err) }
 
-    model.infos[req.params.type].push(req.body);
+    model.infos[req.params.type][req.params.tag].push(req.body);
+
+    model.save(function(err, model){
+      if(err){ return next(err); }
+      res.json(model);
+    });
+  });
+});
+
+router.put('/:id/infos/:type/:tag', function(req, res, next) {
+  Model.findOne({_id: req.params.id}, function(err, model){
+    if(err){ next(err) }
+
+    model.infos[req.params.type][req.params.tag].id(req.body._id).remove(function(err){
+      if(err){ return next(err) }
+      model.infos[req.params.type][req.params.tag].push(req.body);
+    });
+  
     model.save(function(err, model){
       if(err){ return next(err); }
       res.json(model);
@@ -59,11 +76,11 @@ router.delete('/:id', function(req, res, next){
 	})
 });
 
-router.delete('/:id/infos/:type/:infoId', function(req, res, next){
+router.delete('/:id/infos/:type/:tag/:infoId', function(req, res, next){
   Model.findOne({_id: req.params.id}, function(err, model){
     if(err){ next(err) }
 
-    model.infos[req.params.type].id(req.params.infoId).remove();
+    model.infos[req.params.type][req.params.tag].id(req.params.infoId).remove();
     model.save(function(err, model){
       if(err){ return next(err); }
       res.json(model);

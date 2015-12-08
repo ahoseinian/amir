@@ -49,14 +49,20 @@ angular.module('models')
 			}
 		}
 
-		o.add_info = function(type, model, info){
-		  return $http.post('/api/models/'+model._id+'/infos/'+type, info).success(function(data){
+		o.add_info = function(type, model, info, tag){
+		  return $http.post('/api/models/'+model._id+'/infos/'+type+'/'+tag, info).success(function(data){
 		  	angular.copy(data, model);	
 		  });
 		}
 
-		o.remove_info = function(type, model, info){
-		  return $http.delete('/api/models/'+ model._id +'/infos/'+ type +'/'+ info._id).success(function(data){
+		o.save_info = function(type, model, info, tag){
+		  return $http.put('/api/models/'+model._id+'/infos/'+type+'/'+tag, info).success(function(data){
+		  	angular.copy(data, model);	
+		  });
+		}
+
+		o.remove_info = function(type, model, info, tag){
+		  return $http.delete('/api/models/'+ model._id +'/infos/'+ type +'/'+ tag +'/'+ info._id).success(function(data){
 		  	angular.copy(data, model);	
 		  });
 		}

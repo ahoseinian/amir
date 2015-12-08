@@ -9,15 +9,7 @@ body{
   padding: .1rem .75rem;
   line-height: 2;
 }
-.pointer{cursor: pointer;}
-.info-place{
-	display: inline-block;
-	margin: 3px 5px;
-	padding: 0 3px;
-}
-.info-place span{
-	margin: 0 2px; 
-}
+
 .absolute-left{
   position: absolute;
   left: -5px;
