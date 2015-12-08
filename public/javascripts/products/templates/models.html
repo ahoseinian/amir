@@ -20,7 +20,7 @@
 	  </ul>
 
 	  <div class="card-block">
-			<button ng-click="remove(p._id)" class="btn btn-danger btn-sm">Delete</button>
+		  <span confirm-btn click-func="remove(v._id)"></span>
 			<a ui-sref="products.models.new({id: p._id})" class="btn btn-info btn-sm">ویرایش</a>
 	  </div>
 	</div>

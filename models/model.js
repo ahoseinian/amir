@@ -11,7 +11,13 @@ var ModelSchema = new Schema({
 				options:[{name: String}],
 			}],
 		},
-		purchase: [{ name: String }],
+		purchase: {
+			texts:[{ name: String }],
+			selects:[{
+				name: String, 
+				options:[{name: String}],
+			}],
+		},
 	},
   products: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 });
