@@ -71,12 +71,14 @@ angular.module('products', [])
 				url: '/search',
 				templateUrl: "/javascripts/products/templates/search.html",
 				controller: ['$scope', '$stateParams', function($scope, $stateParams){
+					$scope.product = {};
 					$scope.search = function(){
 						for (var i in $scope.product) {
 						  if ($scope.product[i] === "") {
 						    delete $scope.product[i];
 						  }
 						}
+						console.log()
 						$scope.$parent.modelService.searchProducts($scope.product);
 					}
 				}],
