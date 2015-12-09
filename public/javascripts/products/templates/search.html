@@ -3,7 +3,7 @@
 	<form ng-submit="search()" novalidate name="form">
 
 		<fieldset class="form-group">
-			<input class="form-control" placeholder="code" ng-model="product.code" >
+			<input type="number" class="form-control" placeholder="code" ng-model="product.code" >
 		</fieldset>
 
 		<fieldset class="form-group" ng-repeat="info in model.infos.product.texts">

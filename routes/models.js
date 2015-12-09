@@ -5,29 +5,31 @@ var Product = require('../models/product');
 
 /* GET models listing. */
 router.get('/', function(req, res, next) {
-	Model.find(function(err, models){
-		if(err){next(err)};
-		res.json(models);
-	})
+	Model.find({}).sort('name').exec(function(err, models){
+    if(err){next(err)};
+    res.json(models);
+  });
 });
 
 router.get('/:id', function(req, res, next){
   Model.findOne({ _id: req.params.id }, function (err, model) {
     if (err){ next(err) };
-    Product.find({_model: model._id}, function(err, products){
+    Product.find({_model: model._id}, {sort: '-code'}, function(err, products){
       model.products = products;
       res.json(model);
     })
   });
 });
 
-router.get('/by/name/:name', function(req, res, next){
+router.get('/by/name/:name/:page?', function(req, res, next){
+  var page = req.params.page || 1;
   Model.findOne({ name: req.params.name }, function (err, model) {
     if (err){ next(err) };
-    Product.find({_model: model._id}, function(err, products){
-      model.products = products;
-      res.json(model);
-    })
+    Product.paginate({_model: model._id}, {page:page, limit:4, sort:'-code'}).then(function(result){
+      model.products = result.docs;
+      delete result.docs;
+      res.json({model: model, paginate: result});
+    });
   });
 });
 
@@ -98,19 +100,18 @@ router.put('/:id', function(req, res, next) {
 
 
 //seach products
-router.post('/:id/products/search', function(req, res, next){
-
+router.post('/:id/products/search/:page?', function(req, res, next){
+  var page = req.params.page || 1;
   Model.findOne({ _id: req.params.id }, function (err, model) {
     if (err){ next(err) };
     req.body._model = model._id;
-    Product.find(req.body, function(err, products){
-      model.products = products;
-      res.json(model);
+    Product.paginate(req.body, {page:page, limit:4, sort:'-code'}).then(function(result){
+      model.products = result.docs;
+      delete result.docs;
+      res.json({model: model, paginate: result});
     })
   });
 });
-
-
 
 
 module.exports = router;

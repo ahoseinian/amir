@@ -1,9 +1,9 @@
-<div class="card card-block" ng-class="{'card-info': product._id}">
+<div class="card card-block product-box" ng-class="{'card-info': product._id}">
 	<h3>{{product._id ? "Edit": "New"}} {{product.code}}</h3>
 	<form ng-submit="add()" novalidate name="form">
 	
 		<fieldset class="form-group">
-			<input class="form-control" placeholder="code" ng-model="product.code" required>
+			<input type="number" class="form-control" placeholder="code" ng-model="product.code" required>
 		</fieldset>
 
 		<fieldset class="form-group">

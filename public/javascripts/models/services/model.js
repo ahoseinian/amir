@@ -13,7 +13,7 @@ angular.module('models')
 
 		o.create = function(model) {
 		  return $http.post('/api/models', model).success(function(data){
-		    o.models.push(data);
+		    o.models.unshift(data);
 		  });
 		};
 
@@ -31,9 +31,19 @@ angular.module('models')
 
 		o.getByName = function(name) {
 		  return $http.get('/api/models/by/name/' + name).success(function(data){
-		    angular.copy(data, o.model);
+		  	r = data.model;
+		  	r.paginate = data.paginate;
+		    angular.copy(r, o.model);
 		  });
 		};
+
+		o.getByNameNextPage = function(){
+			var page = parseInt(o.model.paginate.page) + 1;
+			return $http.get('/api/models/by/name/'+ o.model.name +'/'+ page).success(function(data){
+				o.model.products = o.model.products.concat(data.model.products);
+				o.model.paginate = data.paginate;
+			});
+		}
 
 		o.remove = function(id){
 			return $http.delete('/api/models/'+ id).success(function(res){
@@ -75,13 +85,13 @@ angular.module('models')
 
 		o.createProduct = function(product) {
 		  return $http.post('/api/products', product).success(function(data){
-		    o.model.products.push(data);
+		    o.model.products.unshift(data);
 		  });
 		};
 
 		o.updateProduct = function(product){
 			return $http.put('/api/products/'+ product._id, product).success(function(data){
-				o.get(o.model._id);
+				
 			});
 		}
 
@@ -96,8 +106,17 @@ angular.module('models')
 
 		o.searchProducts = function(searchParams){
 			return $http.post('/api/models/'+o.model._id+'/products/search', searchParams).success(function(data){
-		    angular.copy(data, o.model);
+				data.model.paginate = data.paginate;
+		    angular.copy(data.model, o.model);
 		  });
+		}
+
+		o.searchProductsNextPage = function(searchParams){
+			var page = parseInt(o.model.paginate.page) + 1;
+			return $http.post('/api/models/'+o.model._id+'/products/search/'+ page, searchParams).success(function(data){
+				o.model.products = o.model.products.concat(data.model.products);
+				o.model.paginate = data.paginate;
+			});
 		}
 
 		return o;

@@ -1,16 +1,20 @@
-<div class="card card-block" ng-class="{'card-info': user._id}" >
-	<h3>{{user._id ? "Edit": "New"}} {{user.username}}</h3>
+<div class="card" ng-class="{'card-info': user._id}" >
+	<h3 class="card-block text-center">{{user._id ? "Edit": "New"}} {{user.username}}</h3>
 	<form ng-submit="add()" novalidate name="form">
-		<fieldset class="form-group">
-			<input class="form-control" placeholder="username" ng-model="user.username" required>
-			<input class="form-control" placeholder="password" type="password" ng-model="user.password" ng-minlength="5" required>
-		</fieldset>
-		<fieldset class="form-group">
-			<input type="text" class="form-control" ng-model="user.fullname" required placeholder="fullname">
-		</fieldset>
-		<fieldset class="form-group">
-			<input type="checkbox" ng-model="user.admin" > Admin?
-		</fieldset>
-		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+		<div class="card-block">
+			<fieldset class="form-group">
+				<input class="form-control" placeholder="username" ng-model="user.username" required ng-disabled="user.username == 'admin'">
+				<input class="form-control" placeholder="password" type="password" ng-model="user.password" ng-minlength="5" required>
+			</fieldset>
+			<fieldset class="form-group">
+				<input type="text" class="form-control" ng-model="user.fullname" required placeholder="fullname">
+			</fieldset>
+			<fieldset class="form-group" ng-hide="user.username == 'admin'">
+				<input type="checkbox" ng-model="user.admin"> Admin?
+			</fieldset>
+		</div>
+		<div class="card-footer">
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+		</div>
 	</form>
 </div>

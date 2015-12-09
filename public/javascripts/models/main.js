@@ -60,8 +60,6 @@ angular.module('models', [])
 					}
 
 					$scope.removeOption = function(option){
-						console.log(option);
-						console.log($scope.editInfo);
 						$scope.editInfo.options = $scope.editInfo.options.filter(function(obj){
 							return obj !== option;
 						});

@@ -44,6 +44,13 @@ angular.module('products', [])
 					$scope.modelService = model;
 					$scope.model = model.model;
 					$scope.remove = function(id){ model.removeProduct(id); }
+					$scope.loadMore = function(){
+						if($scope.$$childHead.product){
+							model.searchProductsNextPage($scope.$$childHead.product);
+						}else{
+							model.getByNameNextPage();
+						}
+					}
 				}],
 
 				resolve:{
@@ -59,7 +66,7 @@ angular.module('products', [])
 				controller: ['$scope', '$state', '$stateParams', 'model', 'product', function($scope, $state, $stateParams, model, product){
 					$scope.product = $scope.modelService.model.products.filter(function(obj){
 						return obj._id == $stateParams.id;
-					})[0];
+					})[0] || {};
 					$scope.add = function(){
 						$scope.modelService.saveProduct($scope.product);
 						$state.go('products.models', {model: model.model.name});
@@ -79,6 +86,10 @@ angular.module('products', [])
 						  }
 						}
 						$scope.$parent.modelService.searchProducts($scope.product);
+					};
+
+					$scope.loadMore = function(){
+
 					}
 				}],
 			})
