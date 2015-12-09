@@ -5,8 +5,8 @@ html(ng-app="myApp")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     meta(http-equiv="x-ua-compatible", content="ie=edge")
     title= title
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    each file in assets.main.css
+      link(rel='stylesheet', href= file)
   body
     .container
       nav.navbar.navbar-light.bg-faded.m-b
@@ -41,6 +41,8 @@ html(ng-app="myApp")
           li.nav-item
             a.nav-link(ui-sref='home', ui-sref-active="active") گزارشات 
       block content
+  
 
-    script(src='/jquery/dist/jquery.min.js')
-    script(src='/bootstrap/dist/js/bootstrap.min.js')
+    each file in assets.main.js
+      script(src= file)
+
