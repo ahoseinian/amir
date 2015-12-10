@@ -5,6 +5,16 @@ angular.module('models')
 			models:[]
 		};
 
+		o.findProduct = findProduct;
+
+		function findProduct(id){
+			return o.model.products.find(byId) || {};
+
+			function byId(item){
+				return item._id == id;
+			};
+		}
+
 		o.getAll = function() {
 		  return $http.get('/api/models').success(function(data){
 		    angular.copy(data, o.models);

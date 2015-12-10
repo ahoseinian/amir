@@ -1,7 +1,6 @@
 (function(){
 	'use strict';
 
-
 	angular
 		.module('app.routes.products')
 		.factory('product', product); 

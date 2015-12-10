@@ -14,12 +14,16 @@
 
 
 		function search(){
-			for (var i in vm.product) {
-			  if (vm.product[i] === "" || vm.product[i] === null) {
-			    delete vm.product[i];
+			model.searchProducts(trimForSearch(vm.product));
+		};
+
+		function trimForSearch(item){
+			for (var i in item) {
+			  if (item[i] === "" || item[i] === null) {
+			    delete item[i];
 			  }
 			}
-			model.searchProducts(vm.product);
-		};
+			return item;
+		}
 	}
 })();

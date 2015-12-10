@@ -58,6 +58,8 @@ router.post('/', function(req, res, next) {
       writeImage(__dirname + '/../storage/images/products/'+ product._id +'.jpg', image, function(){
         res.json(product);
       }); 
+    }else{
+      res.json(product);
     }
   });
 });
@@ -81,6 +83,8 @@ router.put('/:id', function(req, res, next) {
       writeImage(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', image, function(){
         res.json(product);
       }); 
+    }else{
+      res.json(product);
     }
 
   });

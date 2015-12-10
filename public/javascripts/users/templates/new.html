@@ -1,16 +1,16 @@
-<div class="card" ng-class="{'card-info': user._id}" >
-	<h3 class="card-block text-center">{{user._id ? "Edit": "New"}} {{user.username}}</h3>
-	<form ng-submit="add()" novalidate name="form">
+<div class="card" ng-class="{'card-info': vm.user._id}" >
+	<h3 class="card-block text-center">{{vm.user._id ? "Edit": "New"}} {{vm.user.username}}</h3>
+	<form ng-submit="vm.add()" novalidate name="form">
 		<div class="card-block">
 			<fieldset class="form-group">
-				<input class="form-control" placeholder="username" ng-model="user.username" required ng-disabled="user.username == 'admin'">
-				<input class="form-control" placeholder="password" type="password" ng-model="user.password" ng-minlength="5" required>
+				<input class="form-control" placeholder="username" ng-model="vm.user.username" required ng-disabled="vm.user.username == 'admin'">
+				<input class="form-control" placeholder="password" type="password" ng-model="vm.user.password" ng-minlength="5" required>
 			</fieldset>
 			<fieldset class="form-group">
-				<input type="text" class="form-control" ng-model="user.fullname" required placeholder="fullname">
+				<input type="text" class="form-control" ng-model="vm.user.fullname" required placeholder="fullname">
 			</fieldset>
-			<fieldset class="form-group" ng-hide="user.username == 'admin'">
-				<input type="checkbox" ng-model="user.admin"> Admin?
+			<fieldset class="form-group" ng-hide="vm.user.username == 'admin'">
+				<input type="checkbox" ng-model="vm.user.admin"> Admin?
 			</fieldset>
 		</div>
 		<div class="card-footer">

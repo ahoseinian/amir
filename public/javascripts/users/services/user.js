@@ -1,46 +1,71 @@
-angular.module('users')
-	.factory('user', ['$http', function($http){
-		var o = {
-			users:[]
-		};
+(function(){
+	'use strict';
 
-		o.getAll = function() {
+	angular
+		.module('app.routes.users')
+		.factory('user', user); 
+
+	user.$inject = ['$http'];
+	function user($http){
+		var factory = {};
+		factory.users = [];
+		factory.find = find;
+		factory.getAll = getAll; 
+		factory.create = create; 
+		factory.update = update; 
+		factory.get = get; 
+		factory.remove = remove; 
+		factory.save = save;
+
+		return factory;
+
+
+		function find(id){
+			return factory.users.find(byId) || {};
+
+			function byId(item){
+				return item._id == id;
+			}
+		}	
+
+		function getAll() {
 		  return $http.get('/api/users').success(function(data){
-		    angular.copy(data, o.users);
+		    angular.copy(data, factory.users);
 		  });
 		};
 
-		o.create = function(user) {
+		function create(user) {
 		  return $http.post('/api/users', user).success(function(data){
-		    o.users.push(data);
+		    factory.users.push(data);
 		  });
 		};
 
-		o.update = function(user){
+		function update(user){
 			return $http.put('/api/users/'+ user._id, user).success(function(data){
-				o.getAll();
+				factory.getAll();
 			});
 		}
 
-		o.get = function(id) {
+		function get(id) {
 		  return $http.get('/api/users/' + id).then(function(res){
 		    return res.data;
 		  });
 		};
 
-		o.remove = function(id){
+		function remove(id){
 			return $http.delete('/api/users/'+ id).success(function(res){
-				o.getAll();
+				factory.getAll();
 			});
 		};
 
-		o.save = function(user){
+		function save(user){
 			if(user._id){
-				o.update(user);
+				factory.update(user);
 			}else{
-				o.create(user);
+				factory.create(user);
 			}
 		}
 
-		return o;
-	}])
+	}
+
+})();

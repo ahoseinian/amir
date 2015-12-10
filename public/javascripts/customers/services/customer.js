@@ -1,46 +1,76 @@
-angular.module('customers')
-	.factory('customer', ['$http', function($http){
-		var o = {
-			customers:[]
-		};
+(function(){
+	'use strict';
 
-		o.getAll = function() {
-		  return $http.get('/api/customers').success(function(data){
-		    angular.copy(data, o.customers);
-		  });
-		};
+	angular
+		.module('app.routes.customers')
+		.factory('customer', customer);
 
-		o.create = function(customer) {
-		  return $http.post('/api/customers', customer).success(function(data){
-		    o.customers.push(data);
-		  });
-		};
+	customer.$inject = ['$http'];
+	function customer($http){
+		var factory = {};
+		factory.customers = [];
 
-		o.update = function(customer){
-			return $http.put('/api/customers/'+ customer._id, customer).success(function(data){
-				o.getAll();
-			});
+		factory.find = find;
+		factory.get = get;
+		factory.getAll = getAll;
+		factory.create = create;
+		factory.update = update;
+		factory.save = save;
+		factory.remove = remove;
+
+		return factory;
+
+		function find(id){
+			return factory.customers.find(byId) || {};
+
+			function byId(item){
+				return item._id == id;
+			}
 		}
 
-		o.get = function(id) {
+		function get(id) {
 		  return $http.get('/api/customers/' + id).then(function(res){
 		    return res.data;
 		  });
 		};
 
-		o.remove = function(id){
-			return $http.delete('/api/customers/'+ id).success(function(res){
-				o.getAll();
-			});
+		function getAll() {
+		  return $http.get('/api/customers').success(function(data){
+		    angular.copy(data, factory.customers);
+		  });
 		};
 
-		o.save = function(customer){
+		function create(customer) {
+		  return $http.post('/api/customers', customer).success(function(data){
+		    factory.customers.push(data);
+		  });
+		};
+
+		function update(customer){
+			return $http.put('/api/customers/'+ customer._id, customer).success(function(data){
+				factory.getAll();
+			});
+		}
+
+		function save(customer){
 			if(customer._id){
-				o.update(customer);
+				factory.update(customer);
 			}else{
-				o.create(customer);
+				factory.create(customer);
 			}
 		}
 
-		return o;
-	}])
+		function remove(id){
+			return $http.delete('/api/customers/'+ id).success(function(res){
+				angular.copy(factory.customers.filter(filter), factory.customers);
+				
+				function filter(item){
+					return item._id != id;
+				}
+			});
+		};
+
+
+	}
+
+})();

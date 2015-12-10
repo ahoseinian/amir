@@ -1,17 +1,17 @@
 <div id="edit" ng-if="user.admin">
-	<button class="btn btn-primary absolute-left btn-sm" ui-sref="users.new({user: null})">new</button>
+	<button class="btn btn-primary absolute-left btn-sm" ui-sref="users.new({id: null})">new</button>
 
 
 	<div class="card-columns">
 		<div ui-view></div>
-		<div class="card" ng-repeat="v in users">
+		<div class="card" ng-repeat="user in vm.users">
 			<div class="card-block text-center">
-		  	<h4 class="card-title">{{v.username}}</h4>
-		  	<p class="card-text">{{v.fullname}}</p>
+		  	<h4 class="card-title">{{user.username}}</h4>
+		  	<p class="card-text">{{user.fullname}}</p>
 			</div>
 		  <div class="card-footer">
-			  <span confirm-btn click-func="remove(v._id)" ng-if="v.username !== 'admin'"></span>
-				<button ng-click="edit(v)" class="btn btn-info btn-sm">Edit</button>
+			  <span confirm-btn click-func="vm.remove(user._id)" ng-if="user.username !== 'admin'"></span>
+				<a ui-sref="users.new({id: user._id})" class="btn btn-info btn-sm">Edit</a>
 		  </div>
 		</div>
 	</div>

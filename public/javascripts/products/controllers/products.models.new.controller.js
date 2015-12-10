@@ -10,13 +10,12 @@
 		var vm = this;
 		vm.add = add;
 		vm.model = model.model;
-
-		vm.product = model.model.products.filter(function(obj){
-			return obj._id == $stateParams.id;
-		})[0] || {};
+		vm.product = model.findProduct($stateParams.id);
 
 		function add(){
 			model.saveProduct(vm.product);
+			vm.product = {};
 		}
 	}
+	
 })();
