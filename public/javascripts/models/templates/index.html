@@ -1,15 +1,15 @@
-<button class="btn btn-primary absolute-left btn-sm" ui-sref="models.new({model: null})">new</button>
+<button class="btn btn-primary absolute-left btn-sm" ui-sref="models.new({id: null})">new</button>
 
 <div class="card-columns">
 	<div ui-view></div>
-	<div class="card" ng-repeat="v in models">
+	<div class="card" ng-repeat="model in vm.models">
 		<div class="card-block">
-	  	<h4 class="card-title text-center">{{v.name}}</h4>
+	  	<h4 class="card-title text-center">{{model.name}}</h4>
 		</div>
 	  <div class="card-footer">
-			<span confirm-btn click-func="remove(v._id)"></span>
-			<a ng-click="edit(v)" class="btn btn-info btn-sm">Edit</a>
-			<a ui-sref="models.infos({id: v._id, infotype:null})" class="btn btn-secondary btn-sm" ui-sref-active="active">Infos</a>
+			<span confirm-btn click-func="vm.remove(model._id)"></span>
+			<a ui-sref="models.new({id: model._id})" class="btn btn-info btn-sm">Edit</a>
+			<a ui-sref="models.infos({id: model._id, infotype:null})" class="btn btn-secondary btn-sm" ui-sref-active="active">Infos</a>
 	  </div>
 	</div>
 </div>

@@ -6,7 +6,7 @@
 			'app.directives', 
 			'app.routes.products', 
 			'app.routes.users', 
-			'models', 
+			'app.routes.models', 
 			'app.routes.customers'
 		])
 		.config(config);

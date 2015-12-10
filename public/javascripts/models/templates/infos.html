@@ -1,6 +1,6 @@
 <div class="card card-info">
 	<div class="card-block">
-		<h3 class="card-title text-center p-t">{{model.name}}</h3>
+		<h3 class="card-title text-center p-t">{{vm.model.name}}</h3>
 		<div class="text-center">
 			<a ui-sref="models.infos({infoType: 'product'})" ui-sref-active="active" class="btn btn-primary btn-sm">Product</a>
 			<a ui-sref="models.infos({infoType: 'purchase'})" ui-sref-active="active"  class="btn btn-primary btn-sm">Purchase</a>
@@ -8,71 +8,71 @@
 	</div>
 
 
-	<div class="card-block" ng-if="infoType">
+	<div class="card-block" ng-if="vm.infoType">
 		<div class="card-block">
 			<h4 class="card-title">Texts</h4>
 		</div>
 
 		<ul class="list-group list-group-flush">
-			<li class="list-group-item" ng-repeat="info in model.infos[infoType].texts">
+			<li class="list-group-item" ng-repeat="info in vm.model.infos[vm.infoType].texts">
 				<span>{{info.name}}</span>
-				<button type="button" class="close" ng-click="remove(info, 'texts')"> <span>&times;</span> </button>
+				<button type="button" class="close" ng-click="vm.remove(info, 'texts')"> <span>&times;</span> </button>
 			</li>	
 		</ul>
 
-		<form class="card-block" ng-submit="add('texts')" novalidate name="form">
+		<form class="card-block" ng-submit="vm.add('texts')" novalidate name="form">
 			<fieldset class="form-group">
-				<input class="form-control" placeholder="name" ng-model="info.name" required>
+				<input class="form-control" placeholder="name" ng-model="vm.info.name" required>
 			</fieldset>
 			<button type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled="form.$invalid">Save</button>
 		</form>
 	</div>
 
-	<div class="card-block"  ng-if="infoType">
+	<div class="card-block"  ng-if="vm.infoType">
 		<div class="card-block">
 			<h4 class="card-title">Selects</h4>
 		</div>
 
 		<ul class="list-group list-group-flush">
-			<li class="list-group-item" ng-repeat="info in model.infos[infoType].selects">
+			<li class="list-group-item" ng-repeat="info in vm.model.infos[vm.infoType].selects">
 				<span>{{info.name}}</span>
 				<small class="text-muted"> {{info.options.length}} </small>
-				<button type="button" class="close" ng-click="remove(info, 'selects')"> <span>&times;</span> </button>
-				<button type="button" class="close text-primary m-r" ng-click="assignEditInfo(info)"> <span>+</span> </button>
+				<button type="button" class="close" ng-click="vm.remove(info, 'selects')"> <span>&times;</span> </button>
+				<button type="button" class="close text-primary m-r" ng-click="vm.assignEditInfo(info)"> <span>+</span> </button>
 			</li>	
 		</ul>
 
-		<form class="card-block" ng-submit="add('selects')" novalidate name="form">
+		<form class="card-block" ng-submit="vm.add('selects')" novalidate name="form">
 			<fieldset class="form-group">
-				<input class="form-control" placeholder="name" ng-model="info.name" required>
+				<input class="form-control" placeholder="name" ng-model="vm.info.name" required>
 			</fieldset>
 			<button type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled="form.$invalid">Save</button>
 		</form>
 	</div>
 
-	<div class="modal fade" id="myModal"  ng-if="infoType">
+	<div class="modal fade" id="myModal"  ng-if="vm.infoType">
 	  <div class="modal-dialog modal-sm" role="document">
 	    <div class="modal-content">
-	    	<div class="card " ng-if="editInfo">
+	    	<div class="card " ng-if="vm.editInfo">
 					<div class="card-block">
-						<h4 class="card-title">Options for {{editInfo.name}}</h4>
+						<h4 class="card-title">Options for {{vm.editInfo.name}}</h4>
 					</div>
 
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item" ng-repeat="option in editInfo.options">
+						<li class="list-group-item" ng-repeat="option in vm.editInfo.options">
 							<span>{{option.name}}</span>
-							<button type="button" class="close" ng-click="removeOption(option)"> <span>&times;</span> </button>
+							<button type="button" class="close" ng-click="vm.removeOption(option)"> <span>&times;</span> </button>
 						</li>	
 					</ul>
 				
-					<form class="card-block" ng-submit="addOption(option); option = {}" novalidate name="form">
+					<form class="card-block" ng-submit="vm.addOption(option); option = {}" novalidate name="form">
 						<fieldset class="form-group">
 							<input class="form-control" placeholder="name" ng-model="option.name" required>
 						</fieldset>
 						<button type="submit" class="btn btn-secondary btn-sm btn-block" ng-disabled="form.$invalid">Add Option</button>
 					</form>
 					<div class="card-block">
-						<button ng-click="saveOptions()" class="btn btn-primary btn-sm btn-block">Save {{editInfo.name}}</button>
+						<button ng-click="vm.saveOptions()" class="btn btn-primary btn-sm btn-block">Save {{vm.editInfo.name}}</button>
 					</div>
 				</div>
 	    </div>

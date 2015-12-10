@@ -12,7 +12,6 @@
 		vm.model = model.model;
 		vm.search = search;
 
-
 		function search(){
 			model.searchProducts(trimForSearch(vm.product));
 		};

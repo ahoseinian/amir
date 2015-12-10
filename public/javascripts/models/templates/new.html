@@ -1,10 +1,10 @@
-<div class="card" ng-class="{'card-info': model._id}">
+<div class="card" ng-class="{'card-info': vm.model._id}">
 	<div class="card-block">
-		<h4 class="text-center card-title">{{model.name || 'New Model'}}</h4>
+		<h4 class="text-center card-title">{{vm.model.name || 'New Model'}}</h4>
 	</div>
-	<form ng-submit="add()" novalidate name="form">
+	<form ng-submit="vm.add()" novalidate name="form">
 		<fieldset class="form-group card-block">
-			<input class="form-control" placeholder="name" ng-model="model.name" required>
+			<input class="form-control" placeholder="name" ng-model="vm.model.name" required>
 		</fieldset>
 		<div class="card-footer">
 			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
