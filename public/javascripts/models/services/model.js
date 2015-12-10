@@ -79,7 +79,11 @@ angular.module('models')
 
 		o.removeProduct = function(id){
 			return $http.delete('/api/products/'+ id).success(function(res){
-				o.get(o.model._id);
+				o.model.products = o.model.products.filter(filter);
+
+				function filter(item){
+					return item._id != id;
+				}
 			});
 		};
 

@@ -1,47 +1,61 @@
-angular.module('products')
-	.factory('product', ['$http', function($http){
-		var o = {
-			product:{},
-			products:[]
-		};
+(function(){
+	'use strict';
 
-		o.getAll = function() {
-		  return $http.get('/api/products').success(function(data){
-		    angular.copy(data, o.products);
-		  });
-		};
 
-		o.create = function(product) {
-		  return $http.post('/api/products', product).success(function(data){
-		    o.products.push(data);
-		  });
-		};
+	angular
+		.module('app.routes.products')
+		.factory('product', product); 
 
-		o.update = function(product){
-			return $http.put('/api/products/'+ product._id, product).success(function(data){
-				o.getAll();
-			});
-		}
+		product.$inject = ['$http'];
+		
+		function product($http){
+			var factory = {};
+			factory.product= {};
+			factory.products=[];
+			factory.getAll = getAll;
+			factory.create = create;
+			factory.update = update;
+			factory.get = get;
+			factory.save = save;
 
-		o.get = function(id) {
-		  return $http.get('/api/products/' + id).success(function(data){
-		    angular.copy(data, o.product);
-		  });
-		};
+			return factory;
 
-		o.remove = function(id){
-			return $http.delete('/api/products/'+ id).success(function(res){
-				o.getAll();
-			});
-		};
+			function getAll() {
+			  return $http.get('/api/products').success(function(data){
+			    angular.copy(data, factory.products);
+			  });
+			};
 
-		o.save = function(product){
-			if(product._id){
-				o.update(product);
-			}else{
-				o.create(product);
+			function create(product) {
+			  return $http.post('/api/products', product).success(function(data){
+			    factory.products.push(data);
+			  });
+			};
+
+			function update(product){
+				return $http.put('/api/products/'+ product._id, product).success(function(data){
+					factory.getAll();
+				});
+			}
+
+			function get(id) {
+			  return $http.get('/api/products/' + id).success(function(data){
+			    angular.copy(data, factory.product);
+			  });
+			};
+
+			function remove(id){
+				return $http.delete('/api/products/'+ id).success(function(res){
+					factory.getAll();
+				});
+			};
+
+			function save(product){
+				if(product._id){
+					factory.update(product);
+				}else{
+					factory.create(product);
+				}
 			}
 		}
-
-		return o;
-	}])
+})();

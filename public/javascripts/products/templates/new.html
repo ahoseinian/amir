@@ -1,27 +1,35 @@
-<div class="card card-block product-box" ng-class="{'card-info': product._id}">
-	<h3>{{product._id ? "Edit": "New"}} {{product.code}}</h3>
-	<form ng-submit="add()" novalidate name="form">
-	
-		<fieldset class="form-group">
-			<input type="number" class="form-control" placeholder="code" ng-model="product.code" required>
-		</fieldset>
+<div class="card" ng-class="{'card-info': vm.product._id}">
+	<div class="card-header">
+		<h4 class="text-center card-title">
+			{{vm.product._id ? "Edit": "New"}} {{vm.product.code}}
+		</h4>
+	</div>
+	<form ng-submit="vm.add()" novalidate name="form">
+		
+		<div class="card-block">
+			<fieldset class="form-group">
+				<input type="number" class="form-control" placeholder="code" ng-model="vm.product.code" required>
+			</fieldset>
 
-		<fieldset class="form-group">
-			<input class="form-control" type="file" fileread="product.image">
-		</fieldset>
+			<fieldset class="form-group">
+				<input class="form-control" type="file" fileread="vm.product.image">
+			</fieldset>
 
-		<fieldset class="form-group" ng-repeat="info in model.infos.product.texts">
-			<input class="form-control" type="text" ng-model="product[info.name]" placeholder="{{info.name}}">
-		</fieldset>
+			<fieldset class="form-group" ng-repeat="info in vm.model.infos.product.texts">
+				<input class="form-control" type="text" ng-model="vm.product[info.name]" placeholder="{{info.name}}">
+			</fieldset>
 
-		<fieldset class="form-group" ng-repeat="info in model.infos.product.selects">
-			<select class="form-control" 
-			ng-model="product[info.name]" 
-			ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
-				<option value="">{{info.name}}</option>
-			</select>
-		</fieldset>
+			<fieldset class="form-group" ng-repeat="info in vm.model.infos.product.selects">
+				<select class="form-control" 
+				ng-model="vm.product[info.name]" 
+				ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
+					<option value="">{{info.name}}</option>
+				</select>
+			</fieldset>
+		</div>
 
-		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+		<div class="card-footer">
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Save</button>
+		</div>
 	</form>
 </div>

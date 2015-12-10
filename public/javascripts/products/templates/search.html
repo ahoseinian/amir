@@ -1,24 +1,28 @@
-<div class="card card-block">
-	<h3>Search</h3>
-	<form ng-submit="search()" novalidate name="form">
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title text-center">Search</h4>
+	</div>
+	<form ng-submit="vm.search()" novalidate name="form">
+		<div class="card-block">
+			<fieldset class="form-group">
+				<input type="number" class="form-control" placeholder="code" ng-model="vm.product.code" >
+			</fieldset>
 
-		<fieldset class="form-group">
-			<input type="number" class="form-control" placeholder="code" ng-model="product.code" >
-		</fieldset>
+			<fieldset class="form-group" ng-repeat="info in vm.model.infos.product.texts">
+				<input class="form-control" type="text" ng-model="vm.product[info.name]" placeholder="{{info.name}}">
+			</fieldset>
 
-		<fieldset class="form-group" ng-repeat="info in model.infos.product.texts">
-			<input class="form-control" type="text" ng-model="product[info.name]" placeholder="{{info.name}}">
-		</fieldset>
-
-		<fieldset class="form-group" ng-repeat="info in model.infos.product.selects">
-			<select class="form-control" 
-			ng-model="product[info.name]" 
-			ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
-				<option value="">{{info.name}}</option>
-			</select>
-		</fieldset>
-
-		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Search</button>
-		<button ng-click="product = {}" class="btn btn-secondary">Reset</button>
+			<fieldset class="form-group" ng-repeat="info in vm.model.infos.product.selects">
+				<select class="form-control" 
+				ng-model="vm.product[info.name]" 
+				ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
+					<option value="">{{info.name}}</option>
+				</select>
+			</fieldset>
+		</div>
+		<div class="card-footer">
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Search</button>
+			<button ng-click="product = {}" class="btn btn-secondary">Reset</button>
+		</div>
 	</form>
 </div>

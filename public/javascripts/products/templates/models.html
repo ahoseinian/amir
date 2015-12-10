@@ -5,8 +5,8 @@
 </div>
 
 <div class="row ">
-	<div class="col-md-3" ui-view ng-show="product"></div>
-	<div class="col-md-3" ng-repeat="p in model.products">
+	<div class="col-md-3" ui-view ng-show="vm.product"></div>
+	<div class="col-md-3" ng-repeat="p in vm.model.products">
 		<div class="card product-box">
 	    <div class="card-block">
 		    <h4 class="card-title">{{p.code}}</h4>
@@ -16,21 +16,21 @@
 			
 			<div class="card-bottom">
 		    <ul class="m-t list-group list-group-flush">
-			    <li class="list-group-item" ng-repeat="info in model.infos.product.texts" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
-			    <li class="list-group-item" ng-repeat="info in model.infos.product.selects" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
+			    <li class="list-group-item" ng-repeat="info in vm.model.infos.product.texts" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
+			    <li class="list-group-item" ng-repeat="info in vm.model.infos.product.selects" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
 			  </ul>
 
 			  <div class="card-footer">
-				  <span confirm-btn click-func="remove(p._id)"></span>
+				  <span confirm-btn click-func="vm.remove(p._id)"></span>
 					<a ui-sref="products.models.new({id: p._id})" class="btn btn-info btn-sm">ویرایش</a>
 			  </div>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-3" ng-hide="model.paginate.page == model.paginate.pages">
+	<div class="col-md-3" ng-hide="vm.model.paginate.page == vm.model.paginate.pages">
 		<div class="card card-block product-box">
-			<button ng-click="loadMore()" class="btn btn-lg btn-primary btn-block" style="height: 100%">
+			<button ng-click="vm.loadMore()" class="btn btn-lg btn-primary btn-block" style="height: 100%">
 				<h1>... بیشتر</h1>
 			</button>
 		</div>

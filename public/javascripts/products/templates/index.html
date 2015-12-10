@@ -1,6 +1,6 @@
 <h2>Products index</h2>
 <ul class="nav nav-tabs">
-  <li class="nav-item" ng-repeat="model in models">
+  <li class="nav-item" ng-repeat="model in vm.models">
     <a class="nav-link" ui-sref-active="active" ui-sref="products.models({model: model.name, product: null})">{{model.name}}</a>
   </li>
 </ul>
