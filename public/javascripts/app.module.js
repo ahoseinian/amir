@@ -7,7 +7,8 @@
 			'app.routes.products', 
 			'app.routes.users', 
 			'app.routes.models', 
-			'app.routes.customers'
+			'app.routes.customers',
+			'angular-loading-bar',
 		])
 		.config(config);
 

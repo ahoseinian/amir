@@ -7,7 +7,7 @@
 
 	ModelsController.$inject = ['$scope', 'model'];
 	function ModelsController($scope, model){
-		if(!$scope.user){location.reload()}
+		if(!$scope.user){location.reload()};
 		var vm = this; 
 		vm.models = model.models;
 		vm.remove = remove;

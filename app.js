@@ -11,11 +11,6 @@ var assetsManager = require('./config/assets');
 mongoose.connect('mongodb://localhost/amir');
 
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var products = require('./routes/products');
-var models = require('./routes/models');
-var customers = require('./routes/customers');
 
 var app = express();
 
@@ -29,11 +24,7 @@ app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({ 
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(session({secret: 'keyboard cat'}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,6 +37,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
+var index = require('./routes/index');
+var users = require('./routes/users');
+var products = require('./routes/products');
+var models = require('./routes/models');
+var customers = require('./routes/customers');
 
 app.use('/', index);
 app.use('/api/users', passport.authenticate('basic'), users);
