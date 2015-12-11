@@ -11,8 +11,7 @@
 			vm.add = add;
 			
 			function add(){
-				customer.save(vm.customer);
-				vm.customer = {};
+				vm.customer = customer.save(vm.customer);
 			}
 		}
 })();

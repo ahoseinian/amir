@@ -11,6 +11,7 @@
 		factory.customers = [];
 
 		factory.find = find;
+		factory.change = change;
 		factory.get = get;
 		factory.getAll = getAll;
 		factory.create = create;
@@ -25,6 +26,16 @@
 
 			function byId(item){
 				return item._id == id;
+			}
+		}
+
+		function change(id, data){
+			factory.customers.forEach(projects, fixer);
+
+			function fixer(item, i){
+				if(item._id == data._id){
+					factory.customers[i] = data;
+				}
 			}
 		}
 
@@ -48,15 +59,17 @@
 
 		function update(customer){
 			return $http.put('/api/customers/'+ customer._id, customer).success(function(data){
-				factory.getAll();
+				factory.change(customer._id, data);
 			});
 		}
 
 		function save(customer){
 			if(customer._id){
 				factory.update(customer);
+				return factory.find(customer._id);
 			}else{
 				factory.create(customer);
+				return {};
 			}
 		}
 

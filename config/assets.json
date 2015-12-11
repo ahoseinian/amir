@@ -4,6 +4,7 @@
         "public/build/css/main.min.css": [
             "bower_components/bootstrap/dist/css/bootstrap.css",
             "bower_components/angular-loading-bar/build/loading-bar.min.css",
+            "bower_components/toastr/toastr.css",
             "public/stylesheets/**/*.css"
 
         ]
@@ -15,6 +16,7 @@
       		"bower_components/angular-ui-router/release/angular-ui-router.min.js",
           "bower_components/bootstrap/dist/js/bootstrap.min.js",
           "bower_components/angular-loading-bar/build/loading-bar.min.js",
+          "bower_components/toastr/toastr.js",
           "public/javascripts/**/*.module.js",
           "public/javascripts/**/*.js"
       ]

@@ -3,6 +3,7 @@
 	angular
 		.module('myApp', [
 			'ui.router',
+			'app.common',
 			'app.directives', 
 			'app.routes.products', 
 			'app.routes.users', 

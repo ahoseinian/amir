@@ -19,7 +19,7 @@
     "bootstrap": "~4",
     "angular": "~1.4.8",
     "angular-ui-router": "~0.2.15",
-    "angular-notification": "~1.1.1",
-    "angular-loading-bar": "~0.8.0"
+    "angular-loading-bar": "~0.8.0",
+    "toastr": "~2.1.2"
   }
 }
