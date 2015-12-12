@@ -149,11 +149,17 @@ router.post('/:id/purchases/search/:page?', function(req, res, next){
   Model.findOne({ _id: req.params.id }, function (err, model) {
     if (err){ next(err) };
     req.body._model = model._id;
-    Purchase.paginate(req.body, {page:page, limit:4, sort:'-code'}).then(function(result){
-      model.purchases = result.docs;
-      delete result.docs;
-      res.json({model: model, paginate: result});
-    })
+    Purchase
+      .paginate(req.body, {
+        page:page, 
+        limit:4, 
+        sort:'-code',
+        populate: ['_customer', '_product'],
+      }).then(function(result){
+        model.purchases = result.docs;
+        delete result.docs;
+        res.json({model: model, paginate: result});
+      })
   });
 });
 

@@ -1,28 +1,40 @@
+
 <div class="card">
-	<div class="card-header">
-		<h4 class="card-title text-center">Search</h4>
-	</div>
-	<form ng-submit="vm.search()" novalidate name="form">
-		<div class="card-block">
-			<fieldset class="form-group">
-				<input type="number" class="form-control" placeholder="code" ng-model="vm.purchase.code" >
-			</fieldset>
+	<h4 class="card-header">Search</h4>
+	<form class="purchase-form" ng-submit="vm.search()" novalidate name="form">
+		<div class="row">
+			<div class="col-md-3">
+				<img ng-src="/images/products/{{vm.purchase._product._id}}.jpg" ng-show="vm.purchase._product">
+			</div>
+			<div  class="col-md-9 card-block" >
+				<input type="hidden" ng-model="vm.purchase._product" required>
+				<fieldset class="form-group col-md-4">
+					<input class="form-control" type="text" ng-change="vm.getProduct()" ng-model="vm.productCode" placeholder="product code">
+				</fieldset>
+				<fieldset class="form-group  col-md-4">
+					<select class="form-control" ng-model="vm.purchase._customer._id" 
+						ng-options="ctm._id as ctm.name for ctm in vm.customers" >
+						<option value="">نام مشتری</option>
+					</select>
+				</fieldset>
 
-			<fieldset class="form-group" ng-repeat="info in vm.model.infos.purchase.texts">
-				<input class="form-control" type="text" ng-model="vm.purchase[info.name]" placeholder="{{info.name}}">
-			</fieldset>
+				<fieldset class="form-group col-md-4" ng-repeat="info in vm.model.infos.purchase.texts">
+					<input class="form-control" type="text" ng-model="vm.purchase[info.name]" placeholder="{{info.name}}">
+				</fieldset>
 
-			<fieldset class="form-group" ng-repeat="info in vm.model.infos.purchase.selects">
-				<select class="form-control" 
-				ng-model="vm.purchase[info.name]" 
-				ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
-					<option value="">{{info.name}}</option>
-				</select>
-			</fieldset>
+				<fieldset class="form-group col-md-4" ng-repeat="info in vm.model.infos.purchase.selects">
+					<select class="form-control" 
+					ng-model="vm.purchase[info.name]" 
+					ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
+						<option value="">{{info.name}}</option>
+					</select>
+				</fieldset>
+			</div>
+
 		</div>
+
 		<div class="card-footer">
 			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Search</button>
-			<button ng-click="purchase = {}" class="btn btn-secondary">Reset</button>
 		</div>
-	</form>
+	</form>	
 </div>

@@ -30,6 +30,9 @@
 						modelPromise: ['model', '$stateParams', function(model, $stateParams){
 							return model.getPurchases($stateParams.id);
 						}],
+						customerPromise: ['customer', function(customer){
+							return customer.getAll();
+						}],
 					}
 				})
 
@@ -38,16 +41,11 @@
 					templateUrl: "/javascripts/purchases/templates/new.html",
 					controller: 'PurchasesModelsNewController',
 					controllerAs: 'vm',
-					resolve:{
-						customerPromise: ['customer', function(customer){
-							return customer.getAll();
-						}],
-					}
 				})
 
 				.state('purchases.models.search', {
 					url: '/search',
-					templateUrl: "/javascripts/purchases/templates/search.html",
+					templateUrl: "/javascripts/purchases/templates/new.html",
 					controller: 'PurchasesModelsSearchController',
 					controllerAs: 'vm',
 				})

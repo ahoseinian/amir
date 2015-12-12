@@ -1,3 +1,6 @@
+html{
+  font-size: 14px;
+}
 @font-face {
   font-family: yekan-web;
   src: url(/fonts/YekanWeb-Regular.woff);
@@ -40,6 +43,6 @@ body{
   overflow: overlay;
 }
 
-.purchase-box{
-  /*height: 300px;*/
+.purchase-form fieldset.form-group{
+  height: 35px; 
 }

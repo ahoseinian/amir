@@ -140,7 +140,7 @@
 
 		function getProductsNextPage(){
 			var page = parseInt(factory.model.paginate.page) + 1;
-			return $http.get('/api/models/'+ factory.model._id +'/products/'+ page).success(function(data){
+			return $http.get('/api/models/'+ factory.model._id +'/products/page/'+ page).success(function(data){
 				factory.model.products = factory.model.products.concat(data.model.products);
 				factory.model.paginate = data.paginate;
 			});

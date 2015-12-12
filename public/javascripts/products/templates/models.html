@@ -15,7 +15,7 @@
 		  <img ng-src="/images/products/{{p._id}}.jpg" alt="Card image">
 			
 			<div class="card-bottom">
-		    <ul class="m-t list-group list-group-flush">
+		    <ul class="list-group list-group-flush">
 			    <li class="list-group-item" ng-repeat="info in vm.model.infos.product.texts" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
 			    <li class="list-group-item" ng-repeat="info in vm.model.infos.product.selects" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
 			  </ul>

@@ -7,28 +7,31 @@
 
 	PurchasesModelsNewController.$inject = ['$stateParams', 'model', 'customer'];
 	function PurchasesModelsNewController($stateParams, model, customer){
-		var vm = this;
+		const vm = this;
+		vm.route = 'جدید';
+		vm.newRoute = true;
 		vm.model = model.model;
 		vm.customers = customer.customers;
 		vm.purchase = model.findPurchase($stateParams.pid);
 
-		vm.add = add;
+		vm.processForm = processForm;
 		vm.getProduct = getProduct;
 
 		if(vm.purchase._product){
 			vm.productCode = vm.purchase._product.code;
 		}
 
-		function add(){
+		function processForm(){
 			model.savePurchase(vm.purchase);
 			vm.purchase = {};
+			vm.productCode = null;
 		}
 
 		function getProduct(){
 			if(vm.productCode){
-				model.getProduct(vm.productCode).success(function(data){
-					vm.purchase._product = data;
-				});
+				model
+					.getProduct(vm.productCode)
+					.success((data) => vm.purchase._product = data );
 			}
 		}
 	}
