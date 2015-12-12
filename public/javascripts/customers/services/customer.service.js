@@ -30,7 +30,7 @@
 		}
 
 		function change(id, data){
-			factory.customers.forEach(projects, fixer);
+			factory.customers.forEach(fixer);
 
 			function fixer(item, i){
 				if(item._id == data._id){

@@ -118,7 +118,7 @@
 		}
 
 		function remove_info(type, model, info, tag){
-		  return $http.delete('/api/models/'+ model._id +'/infos/'+ type +'/'+ tag +'/'+ inffactory._id).success(function(data){
+		  return $http.delete('/api/models/'+ model._id +'/infos/'+ type +'/'+ tag +'/'+ info._id).success(function(data){
 		  	angular.copy(data, model);	
 		  });
 		}

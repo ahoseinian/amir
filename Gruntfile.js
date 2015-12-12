@@ -17,12 +17,21 @@ module.exports = function(grunt) {
             main: {
                 files: '<%= assets.main.css %>'
             }
-        }
+        },
+        watch: {
+				  css: {
+				    files: ['public/**/*.js', 'public/**/*.css', 'public/**/*.html'],
+				    options: {
+				      livereload: true,
+				    },
+				  },
+				},
     });
 
     //Load NPM tasks
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
