@@ -47,12 +47,14 @@ var users = require('./routes/users');
 var products = require('./routes/products');
 var models = require('./routes/models');
 var customers = require('./routes/customers');
+var purchases = require('./routes/purchases');
 
 app.use('/', index);
 app.use('/api/users', passport.authenticate('basic'), users);
 app.use('/api/customers', passport.authenticate('basic'), customers);
 app.use('/api/products', passport.authenticate('basic'), products);
 app.use('/api/models', passport.authenticate('basic'), models);
+app.use('/api/purchases', passport.authenticate('basic'), purchases);
 
 
 // catch 404 and forward to error handler

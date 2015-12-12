@@ -19,7 +19,8 @@ var ModelSchema = new Schema({
 			}],
 		},
 	},
-  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+  purchases: [{ type: Schema.Types.ObjectId, ref: 'Purchase' }],
 });
 
 

@@ -20,7 +20,7 @@
 			if($scope.$$childHead.vm.product){
 				model.searchProductsNextPage($scope.$$childHead.vm.product);
 			}else{
-				model.getByNameNextPage();
+				model.getProductsNextPage();
 			}
 		}
 	}

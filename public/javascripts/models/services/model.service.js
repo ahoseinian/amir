@@ -17,14 +17,15 @@
 		factory.create = create; 
 		factory.update = update; 
 		factory.get = get; 
-		factory.getByName = getByName; 
-		factory.getByNameNextPage = getByNameNextPage; 
 		factory.remove = remove; 
 		factory.save = save; 
 		factory.add_info = add_info; 
 		factory.save_info = save_info;
 		factory.remove_info = remove_info;
 		
+		factory.getProduct = getProduct;
+		factory.getProducts = getProducts; 
+		factory.getProductsNextPage = getProductsNextPage; 
 		factory.findProduct = findProduct;
 		factory.removeProduct = removeProduct; 
 		factory.createProduct = createProduct; 
@@ -32,6 +33,16 @@
 		factory.saveProduct = saveProduct; 
 		factory.searchProducts = searchProducts; 
 		factory.searchProductsNextPage = searchProductsNextPage; 
+
+		factory.getPurchases = getPurchases; 
+		factory.getPurchasesNextPage = getPurchasesNextPage; 
+		factory.findPurchase = findPurchase;
+		factory.removePurchase = removePurchase;
+		factory.createPurchase = createPurchase;
+		factory.updatePurchase = updatePurchase;
+		factory.savePurchase = savePurchase; 
+		factory.searchPurchases = searchPurchases; 
+		factory.searchPurchasesNextPage = searchPurchasesNextPage; 
 
 		return factory;
 
@@ -41,15 +52,8 @@
 			function byId(item){
 				return item._id == id;
 			};
-		}
-		
-		function findProduct(id){
-			return factory.model.products.find(byId) || {};
+		};
 
-			function byId(item){
-				return item._id == id;
-			};
-		}
 
 		function getAll() {
 		  return $http.get('/api/models').success(function(data){
@@ -74,22 +78,6 @@
 		    angular.copy(data, factory.model);
 		  });
 		};
-
-		function getByName(name) {
-		  return $http.get('/api/models/by/name/' + name).success(function(data){
-		  	var r = data.model;
-		  	r.paginate = data.paginate;
-		    angular.copy(r, factory.model);
-		  });
-		};
-
-		function getByNameNextPage(){
-			var page = parseInt(factory.model.paginate.page) + 1;
-			return $http.get('/api/models/by/name/'+ factory.model.name +'/'+ page).success(function(data){
-				factory.model.products = factory.model.products.concat(data.model.products);
-				factory.model.paginate = data.paginate;
-			});
-		}
 
 		function remove(id){
 			return $http.delete('/api/models/'+ id).success(function(res){
@@ -121,6 +109,41 @@
 		  return $http.delete('/api/models/'+ model._id +'/infos/'+ type +'/'+ tag +'/'+ info._id).success(function(data){
 		  	angular.copy(data, model);	
 		  });
+		}
+
+		/*
+		*
+		* Products methods
+		*/
+		
+		function findProduct(id){
+			return factory.model.products.find(byId) || {};
+
+			function byId(item){
+				return item._id == id;
+			};
+		}
+
+		function getProduct(id) {
+		  return $http.get('/api/models/' + factory.model._id + '/products/' + id).success(function(data){
+		    return data;
+		  });
+		};
+
+		function getProducts(name) {
+		  return $http.get('/api/models/' + name + '/products/page').success(function(data){
+		  	var r = data.model;
+		  	r.paginate = data.paginate;
+		    angular.copy(r, factory.model);
+		  });
+		};
+
+		function getProductsNextPage(){
+			var page = parseInt(factory.model.paginate.page) + 1;
+			return $http.get('/api/models/'+ factory.model._id +'/products/'+ page).success(function(data){
+				factory.model.products = factory.model.products.concat(data.model.products);
+				factory.model.paginate = data.paginate;
+			});
 		}
 
 		function removeProduct(id){
@@ -168,6 +191,84 @@
 				factory.model.paginate = data.paginate;
 			});
 		}
+
+
+
+		/*
+		*
+		* Purchase methods
+		*/
+		
+		function findPurchase(id){
+			return factory.model.purchases.find(byId) || {};
+
+			function byId(item){
+				return item._id == id;
+			};
+		}
+
+		function getPurchases(name) {
+		  return $http.get('/api/models/' + name + '/purchases').success(function(data){
+		  	var r = data.model;
+		  	r.paginate = data.paginate;
+		    angular.copy(r, factory.model);
+		  });
+		};
+
+		function getPurchasesNextPage(){
+			var page = parseInt(factory.model.paginate.page) + 1;
+			return $http.get('/api/models/'+ factory.model._id +'/purchases/'+ page).success(function(data){
+				factory.model.purchases = factory.model.purchases.concat(data.model.purchases);
+				factory.model.paginate = data.paginate;
+			});
+		}
+
+		function removePurchase(id){
+			return $http.delete('/api/purchases/'+ id).success(function(res){
+				factory.model.purchases = factory.model.purchases.filter(filter);
+
+				function filter(item){
+					return item._id != id;
+				}
+			});
+		};
+
+		function createPurchase(purchase) {
+		  return $http.post('/api/purchases', purchase).success(function(data){
+		    factory.model.purchases.unshift(data);
+		  });
+		};
+
+		function updatePurchase(purchase){
+			return $http.put('/api/purchases/'+ purchase._id, purchase).success(function(data){
+				
+			});
+		}
+
+		function savePurchase(purchase){
+			purchase._model = factory.model._id;
+			if(purchase._id){
+				factory.updatePurchase(purchase);
+			}else{
+				factory.createPurchase(purchase);
+			}
+		}
+
+		function searchPurchases(searchParams){
+			return $http.post('/api/models/'+factory.model._id+'/purchases/search', searchParams).success(function(data){
+				data.model.paginate = data.paginate;
+		    angular.copy(data.model, factory.model);
+		  });
+		}
+
+		function searchPurchasesNextPage(searchParams){
+			var page = parseInt(factory.model.paginate.page) + 1;
+			return $http.post('/api/models/'+factory.model._id+'/purchases/search/'+ page, searchParams).success(function(data){
+				factory.model.purchases = factory.model.purchases.concat(data.model.purchases);
+				factory.model.paginate = data.paginate;
+			});
+		}
+
 
 	}
 })();

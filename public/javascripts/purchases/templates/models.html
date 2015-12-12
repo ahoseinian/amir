@@ -1,0 +1,47 @@
+<div class="absolute-left">
+	<a ui-sref="purchases.models.new({pid: null})"  class="btn btn-primary btn-sm btn-block" ui-sref-active="active">new</a>
+	<a ui-sref="purchases.models.search"  class="btn btn-secondary btn-sm btn-block" ui-sref-active="active">search</a>
+	<a onclick="window.print(); return false;" class="btn btn-secondary btn-sm btn-block">Print</a>
+</div>
+
+<div class="row ">
+	<div class="col-md-12" ui-view ng-show="vm.purchase"></div>
+	<div class="col-md-12" ng-repeat="p in vm.model.purchases">
+		<div class="card purchase-box">
+	    <div class="card-block">
+		    <h4 class="card-title">
+		    	{{p.code}}
+					<small class="text-muted pull-right">{{p._customer.name}}</small>
+	    	</h4>
+		  </div>
+		  <div class="row">
+		  	<div class="col-md-3">
+			  	<img ng-src="/images/products/{{p._product._id}}.jpg">
+		  	</div>
+			
+				<div class="card-block">
+			    <ul class="list-group list-group-flush">
+			    	<li class="list-group-item col-md-3">کد کالا: {{p._product.code}}</li>
+				    <li class="list-group-item col-md-3" ng-repeat="info in vm.model.infos.purchase.texts" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
+				    <li class="list-group-item col-md-3" ng-repeat="info in vm.model.infos.purchase.selects" ng-if="p[info.name]">{{info.name}}: {{p[info.name]}}</li>
+				  </ul>
+				</div>
+		  </div>
+
+		  <div class="card-footer">
+			  <span confirm-btn click-func="vm.remove(p._id)"></span>
+				<a ui-sref="purchases.models.new({pid: p._id})" class="btn btn-info btn-sm">ویرایش</a>
+		  </div>
+
+		</div>
+	</div>
+
+	<div class="col-md-3" ng-hide="vm.model.paginate.page == vm.model.paginate.pages">
+		<div class="card card-block purchase-box">
+			<button ng-click="vm.loadMore()" class="btn btn-lg btn-primary btn-block" style="height: 100%">
+				<h1>... بیشتر</h1>
+			</button>
+		</div>
+	</div>
+</div>
+

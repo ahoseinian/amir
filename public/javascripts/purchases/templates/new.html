@@ -1,0 +1,42 @@
+<div class="card" ng-class="{'card-info': vm.purchase._id}">
+	<div class="card-header">
+		<h4 class="text-center card-title">
+			{{vm.purchase._id ? "Edit": "New"}} {{vm.purchase.code}}
+		</h4>
+	</div>
+	<form ng-submit="vm.add()" novalidate name="form">
+		<div class="row">
+			<div class="col-md-3">
+				<img ng-src="/images/products/{{vm.purchase._product._id}}.jpg" ng-show="vm.purchase._product">
+			</div>
+			<div class="col-md-9 card-block">
+
+				<input type="hidden" ng-model="vm.purchase._product" required >
+				<fieldset class="form-group col-md-3">
+					<input class="form-control" type="text" ng-change="vm.getProduct()" ng-model="vm.productCode" placeholder="product code">
+				</fieldset>
+				<fieldset class="form-group  col-md-3">
+					<select class="form-control" ng-model="vm.purchase._customer" 
+						ng-options="ctm._id as ctm.name for ctm in vm.customers" required></select>
+				</fieldset>
+
+				<fieldset class="form-group col-md-3" ng-repeat="info in vm.model.infos.purchase.texts">
+					<input class="form-control" type="text" ng-model="vm.purchase[info.name]" placeholder="{{info.name}}">
+				</fieldset>
+
+				<fieldset class="form-group col-md-3" ng-repeat="info in vm.model.infos.purchase.selects">
+					<select class="form-control" 
+					ng-model="vm.purchase[info.name]" 
+					ng-options="option.name as option.name for option in info.options" placeholder="{{info.name}}" >
+						<option value="">{{info.name}}</option>
+					</select>
+				</fieldset>
+
+			</div>
+		</div>
+
+		<div class="card-footer">
+			<button type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled="form.$invalid">Save</button>
+		</div>
+	</form>
+</div>

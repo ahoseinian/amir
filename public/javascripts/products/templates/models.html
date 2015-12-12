@@ -1,5 +1,5 @@
 <div class="absolute-left">
-	<a ui-sref="products.models.new({id: null})"  class="btn btn-primary btn-sm btn-block" ui-sref-active="active">new</a>
+	<a ui-sref="products.models.new({pid: null})"  class="btn btn-primary btn-sm btn-block" ui-sref-active="active">new</a>
 	<a ui-sref="products.models.search"  class="btn btn-secondary btn-sm btn-block" ui-sref-active="active">search</a>
 	<a onclick="window.print(); return false;" class="btn btn-secondary btn-sm btn-block">Print</a>
 </div>
@@ -22,7 +22,7 @@
 
 			  <div class="card-footer">
 				  <span confirm-btn click-func="vm.remove(p._id)"></span>
-					<a ui-sref="products.models.new({id: p._id})" class="btn btn-info btn-sm">ویرایش</a>
+					<a ui-sref="products.models.new({pid: p._id})" class="btn btn-info btn-sm">ویرایش</a>
 			  </div>
 			</div>
 		</div>

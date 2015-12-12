@@ -10,7 +10,7 @@
 		var vm = this;
 		vm.add = add;
 		vm.model = model.model;
-		vm.product = model.findProduct($stateParams.id);
+		vm.product = model.findProduct($stateParams.pid);
 
 		function add(){
 			model.saveProduct(vm.product);

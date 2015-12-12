@@ -19,13 +19,13 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-				  css: {
-				    files: ['public/**/*.js', 'public/**/*.css', 'public/**/*.html'],
-				    options: {
-				      livereload: true,
-				    },
-				  },
-				},
+		  css: {
+		    files: ['public/**/*.js', 'public/**/*.css', 'public/**/*.html'],
+		    options: {
+		      livereload: true,
+		    },
+		  },
+		},
     });
 
     //Load NPM tasks

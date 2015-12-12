@@ -5,10 +5,11 @@
 			'ui.router',
 			'app.common',
 			'app.directives', 
-			'app.routes.products', 
 			'app.routes.users', 
 			'app.routes.models', 
 			'app.routes.customers',
+			'app.routes.products', 
+			'app.routes.purchases', 
 			'angular-loading-bar',
 		])
 		.config(config);

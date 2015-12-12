@@ -22,19 +22,19 @@
 				})
 
 				.state('products.models', {
-					url: "/models/:model",
+					url: "/models/:id",
 					templateUrl: "/javascripts/products/templates/models.html",
 					controller: 'ProductsModelsController',
 					controllerAs: 'vm',
 					resolve:{
 						modelPromise: ['model', '$stateParams', function(model, $stateParams){
-							return model.getByName($stateParams.model);
+							return model.getProducts($stateParams.id);
 						}],
 					}
 				})
 
 				.state('products.models.new', {
-					url: "/new/:id",
+					url: "/new/:pid",
 					templateUrl: "/javascripts/products/templates/new.html",
 					controller: 'ProductsModelsNewController',
 					controllerAs: 'vm',
