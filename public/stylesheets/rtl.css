@@ -3,7 +3,8 @@ body{
 }
 .nav-tabs .nav-item,
 .navbar-brand,
-.navbar-nav .nav-item{
+.navbar-nav .nav-item,
+[class^="col-"]{
 	float: right;
 }
 .navbar-nav .nav-item:first-of-type, .navbar-brand {
