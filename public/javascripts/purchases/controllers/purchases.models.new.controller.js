@@ -23,8 +23,11 @@
 
 		function processForm(){
 			model.savePurchase(vm.purchase);
-			vm.purchase = {};
-			vm.productCode = null;
+			
+			if(!vm.purchase._id){
+				vm.purchase = {};
+				vm.productCode = null;
+			}
 		}
 
 		function getProduct(){

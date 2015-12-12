@@ -198,7 +198,17 @@
 		*
 		* Purchase methods
 		*/
-		
+		function changePurchase(id, data){
+			console.log(data);
+			factory.model.purchases.forEach(fixer);
+
+			function fixer(item, i){
+				if(item._id == data._id){
+					factory.model.purchases[i] = data;
+				}
+			}
+		}
+
 		function findPurchase(id){
 			return factory.model.purchases.find(byId) || {};
 
@@ -241,7 +251,7 @@
 
 		function updatePurchase(purchase){
 			return $http.put('/api/purchases/'+ purchase._id, purchase).success(function(data){
-				
+				changePurchase(purchase._id, data);
 			});
 		}
 

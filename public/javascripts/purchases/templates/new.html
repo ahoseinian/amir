@@ -5,10 +5,10 @@
 	<form class="purchase-form" ng-submit="vm.processForm()" novalidate name="form">
 		<div class="row">
 			<div class="col-md-3">
-				<img ng-src="/images/products/{{vm.purchase._product._id}}.jpg" ng-show="vm.purchase._product">
+				<img class="m-r-1 m-t-1" ng-src="/images/products/{{vm.purchase._product._id}}.jpg" ng-show="vm.purchase._product">
 			</div>
 			<div  class="col-md-9 card-block" >
-				<input type="hidden" ng-model="vm.purchase._product._id" >
+				<input type="hidden" ng-model="vm.purchase._product._id" ng-required="vm.newRoute">
 				<fieldset class="form-group col-md-4">
 					<input class="form-control" type="text" ng-change="vm.getProduct()" ng-model="vm.productCode" placeholder="product code">
 				</fieldset>
@@ -35,7 +35,10 @@
 		</div>
 
 		<div class="card-footer">
-			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">{{vm.route}}</button>
+			<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+				<span ng-hide="vm.purchase._id">{{vm.route}}</span>
+				<span ng-show="vm.purchase._id">ویرایش</span>
+			</button>
 		</div>
 	</form>	
 </div>

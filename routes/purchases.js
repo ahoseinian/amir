@@ -48,9 +48,14 @@ router.delete('/:id', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next) {
-  Purchase.update({_id: req.params.id}, req.body, function(err, purchase){
+  Purchase.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, purchase){
     if(err){ return next(err); }
-    res.json(purchase);
+    Purchase.populate(purchase, 
+      [{path: "_customer"},{path: "_product"}],
+      function(err, purchase){
+        if(err){ return next(err); }
+        res.json(purchase);
+      });
   });
 });
 
