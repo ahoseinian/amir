@@ -13,21 +13,24 @@
 				<small class="text-muted pull-xs-left">{{p._customer.name}}</small>
     	</h4>
 		  <div class="row card-block">
-		  	<div class="col-md-3">
+		  	<div class="col-md-2">
 			  	<img ng-src="/images/products/{{p._product._id}}.jpg">
 		  	</div>
 			
 	    	<div class="col-md-3">
-	    		کد کالا: 
-    			{{p._product.code}}
+	    		کد کالا: {{p._product.code}}
 	    	</div>
 		    <div class="col-md-3" ng-repeat="info in vm.model.infos.purchase.texts" ng-if="p[info.name]">
-		    	{{info.name}}:
-	    		{{p[info.name]}}
+		    	{{info.name}}: {{p[info.name]}}
 	    	</div>
 		    <div class="col-md-3" ng-repeat="info in vm.model.infos.purchase.selects" ng-if="p[info.name]">
-			    {{info.name}}: 
-			    {{p[info.name]}}
+			    {{info.name}}: {{p[info.name]}}
+		    </div>
+		    <div class="col-md-3" ng-repeat="info in vm.model.infos.product.texts" ng-if="p._product[info.name]">
+		    	{{info.name}}: {{p._product[info.name]}}
+	    	</div>
+		    <div class="col-md-3" ng-repeat="info in vm.model.infos.product.selects" ng-if="p._product[info.name]">
+			    {{info.name}}: {{p._product[info.name]}}
 		    </div>
 			</div>
 
