@@ -9,7 +9,7 @@ var assets = assetmanager.process({
   webroot: 'public'
 });
 
-obj.middleWare = function (req, res, next) {
+module.exports = function (req, res, next) {
   assets.main.js = assets.main.js.map(removeWebRoots);
   assets.main.css = assets.main.css.map(removeWebRoots);
 
@@ -19,5 +19,3 @@ obj.middleWare = function (req, res, next) {
   res.locals = { assets: assets };
   next();
 };
-
-module.exports = obj;
