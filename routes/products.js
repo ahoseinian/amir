@@ -67,7 +67,9 @@ router.post('/', function(req, res, next) {
 router.delete('/:id', function(req, res, next){
 	Product.remove({_id: req.params.id },function(err, removed){
 		if(err){ next(err); }
-    fs.unlink(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', function(err){return console.error(err); });
+    fs.unlink(__dirname + '/../storage/images/products/'+ req.params.id +'.jpg', function(err){
+      if(err) next(err);
+    });
 
 		res.json(removed);
 	})
