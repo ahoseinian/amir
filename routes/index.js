@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('../passport');
+var passport = require('../config/passport');
 
 router.use( '/api/users', passport.authenticate('basic'), require('./users') );
 router.use( '/api/customers', passport.authenticate('basic'), require('./customers') );
